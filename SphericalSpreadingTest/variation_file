@@ -1,0 +1,25 @@
+
+===============================
+15 variations with 2 parameters
+===============================
+
+
+==================
+Listing variations
+==================
+
+Variation 0 : {'STM': 'RDF', 'theta0': 30}
+Variation 1 : {'STM': 'RDF', 'theta0': 50}
+Variation 2 : {'STM': 'RDF', 'theta0': 90}
+Variation 3 : {'STM': 'RDF', 'theta0': 110}
+Variation 4 : {'STM': 'RDF', 'theta0': 140}
+Variation 5 : {'STM': 'fitParaboloid', 'theta0': 30}
+Variation 6 : {'STM': 'fitParaboloid', 'theta0': 50}
+Variation 7 : {'STM': 'fitParaboloid', 'theta0': 90}
+Variation 8 : {'STM': 'fitParaboloid', 'theta0': 110}
+Variation 9 : {'STM': 'fitParaboloid', 'theta0': 140}
+Variation 10 : {'STM': 'heightFunction', 'theta0': 30}
+Variation 11 : {'STM': 'heightFunction', 'theta0': 50}
+Variation 12 : {'STM': 'heightFunction', 'theta0': 90}
+Variation 13 : {'STM': 'heightFunction', 'theta0': 110}
+Variation 14 : {'STM': 'heightFunction', 'theta0': 140}

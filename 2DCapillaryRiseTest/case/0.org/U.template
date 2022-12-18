@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2106                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    inlet
+    {
+        type            pressureInletOutletVelocity;
+        value           uniform (0 0 0);
+    }
+
+    atmosphere
+    {
+        type            pressureInletOutletVelocity;
+        value           uniform (0 0 0);
+    }
+
+    walls
+    {
+	/*type            navierSlip;
+        value           uniform (0 0 0);
+        slipLength      uniform @!slipLength!@;
+        wallVelocity    uniform (0 0 0);*/
+
+        type            partialSlip;
+        valueFraction	uniform #calc"(@!X!@.0/1000.0/@!nx!@.0)/((@!X!@.0/1000.0/@!nx!@.0)+(2.0*@!slipLength!@))";
+        //valueFraction   uniform 0.000312402;  //value fraction = d / d+2*lambda, lamba is slip length and d is adjacent mesh cell size
+    }
+
+    frontAndBack
+    {
+        type            empty;
+    }
+}
+
+
+// ************************************************************************* //

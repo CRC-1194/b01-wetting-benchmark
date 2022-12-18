@@ -1,0 +1,35 @@
+
+===============================
+25 variations with 2 parameters
+===============================
+
+
+==================
+Listing variations
+==================
+
+Variation 0 : {'nZ': 32, 'nX': 128}
+Variation 1 : {'nZ': 32, 'nX': 256}
+Variation 2 : {'nZ': 32, 'nX': 512}
+Variation 3 : {'nZ': 32, 'nX': 1024}
+Variation 4 : {'nZ': 32, 'nX': 2056}
+Variation 5 : {'nZ': 64, 'nX': 128}
+Variation 6 : {'nZ': 64, 'nX': 256}
+Variation 7 : {'nZ': 64, 'nX': 512}
+Variation 8 : {'nZ': 64, 'nX': 1024}
+Variation 9 : {'nZ': 64, 'nX': 2056}
+Variation 10 : {'nZ': 128, 'nX': 128}
+Variation 11 : {'nZ': 128, 'nX': 256}
+Variation 12 : {'nZ': 128, 'nX': 512}
+Variation 13 : {'nZ': 128, 'nX': 1024}
+Variation 14 : {'nZ': 128, 'nX': 2056}
+Variation 15 : {'nZ': 256, 'nX': 128}
+Variation 16 : {'nZ': 256, 'nX': 256}
+Variation 17 : {'nZ': 256, 'nX': 512}
+Variation 18 : {'nZ': 256, 'nX': 1024}
+Variation 19 : {'nZ': 256, 'nX': 2056}
+Variation 20 : {'nZ': 512, 'nX': 128}
+Variation 21 : {'nZ': 512, 'nX': 256}
+Variation 22 : {'nZ': 512, 'nX': 512}
+Variation 23 : {'nZ': 512, 'nX': 1024}
+Variation 24 : {'nZ': 512, 'nX': 2056}

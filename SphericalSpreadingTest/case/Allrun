@@ -1,0 +1,31 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+rm -rf 0 && cp -r 0.org 0 
+rm -rf 0/*.template
+rm -rf constant/*.template
+rm -rf system/*.template
+
+runApplication cartesianMesh
+
+# Initialization
+runApplication surfaceInitVolumeFraction
+
+# Postprocessing
+runApplication foamToVTK
+
+
+runApplication decomposePar
+
+#application=`getApplication`
+
+#runApplication  $application 
+
+##some commands
+#pyFoamRunParameterVariation.py --list-variations case case.parameter
+#./create-study.py -s test -c case -p case.parameter
+#foamSequenceVTKFiles -vtp
+# ----------------------------------------------------------------- end-of-file

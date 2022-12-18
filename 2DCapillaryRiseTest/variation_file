@@ -1,0 +1,58 @@
+
+===============================
+48 variations with 3 parameters
+===============================
+
+
+==================
+Listing variations
+==================
+
+Variation 0 : {'STM': 'RDF', 'ny': 64, 'nx': 16}
+Variation 1 : {'STM': 'RDF', 'ny': 64, 'nx': 32}
+Variation 2 : {'STM': 'RDF', 'ny': 64, 'nx': 64}
+Variation 3 : {'STM': 'RDF', 'ny': 64, 'nx': 128}
+Variation 4 : {'STM': 'RDF', 'ny': 128, 'nx': 16}
+Variation 5 : {'STM': 'RDF', 'ny': 128, 'nx': 32}
+Variation 6 : {'STM': 'RDF', 'ny': 128, 'nx': 64}
+Variation 7 : {'STM': 'RDF', 'ny': 128, 'nx': 128}
+Variation 8 : {'STM': 'RDF', 'ny': 256, 'nx': 16}
+Variation 9 : {'STM': 'RDF', 'ny': 256, 'nx': 32}
+Variation 10 : {'STM': 'RDF', 'ny': 256, 'nx': 64}
+Variation 11 : {'STM': 'RDF', 'ny': 256, 'nx': 128}
+Variation 12 : {'STM': 'RDF', 'ny': 512, 'nx': 16}
+Variation 13 : {'STM': 'RDF', 'ny': 512, 'nx': 32}
+Variation 14 : {'STM': 'RDF', 'ny': 512, 'nx': 64}
+Variation 15 : {'STM': 'RDF', 'ny': 512, 'nx': 128}
+Variation 16 : {'STM': 'fitParaboloid', 'ny': 64, 'nx': 16}
+Variation 17 : {'STM': 'fitParaboloid', 'ny': 64, 'nx': 32}
+Variation 18 : {'STM': 'fitParaboloid', 'ny': 64, 'nx': 64}
+Variation 19 : {'STM': 'fitParaboloid', 'ny': 64, 'nx': 128}
+Variation 20 : {'STM': 'fitParaboloid', 'ny': 128, 'nx': 16}
+Variation 21 : {'STM': 'fitParaboloid', 'ny': 128, 'nx': 32}
+Variation 22 : {'STM': 'fitParaboloid', 'ny': 128, 'nx': 64}
+Variation 23 : {'STM': 'fitParaboloid', 'ny': 128, 'nx': 128}
+Variation 24 : {'STM': 'fitParaboloid', 'ny': 256, 'nx': 16}
+Variation 25 : {'STM': 'fitParaboloid', 'ny': 256, 'nx': 32}
+Variation 26 : {'STM': 'fitParaboloid', 'ny': 256, 'nx': 64}
+Variation 27 : {'STM': 'fitParaboloid', 'ny': 256, 'nx': 128}
+Variation 28 : {'STM': 'fitParaboloid', 'ny': 512, 'nx': 16}
+Variation 29 : {'STM': 'fitParaboloid', 'ny': 512, 'nx': 32}
+Variation 30 : {'STM': 'fitParaboloid', 'ny': 512, 'nx': 64}
+Variation 31 : {'STM': 'fitParaboloid', 'ny': 512, 'nx': 128}
+Variation 32 : {'STM': 'heightFunction', 'ny': 64, 'nx': 16}
+Variation 33 : {'STM': 'heightFunction', 'ny': 64, 'nx': 32}
+Variation 34 : {'STM': 'heightFunction', 'ny': 64, 'nx': 64}
+Variation 35 : {'STM': 'heightFunction', 'ny': 64, 'nx': 128}
+Variation 36 : {'STM': 'heightFunction', 'ny': 128, 'nx': 16}
+Variation 37 : {'STM': 'heightFunction', 'ny': 128, 'nx': 32}
+Variation 38 : {'STM': 'heightFunction', 'ny': 128, 'nx': 64}
+Variation 39 : {'STM': 'heightFunction', 'ny': 128, 'nx': 128}
+Variation 40 : {'STM': 'heightFunction', 'ny': 256, 'nx': 16}
+Variation 41 : {'STM': 'heightFunction', 'ny': 256, 'nx': 32}
+Variation 42 : {'STM': 'heightFunction', 'ny': 256, 'nx': 64}
+Variation 43 : {'STM': 'heightFunction', 'ny': 256, 'nx': 128}
+Variation 44 : {'STM': 'heightFunction', 'ny': 512, 'nx': 16}
+Variation 45 : {'STM': 'heightFunction', 'ny': 512, 'nx': 32}
+Variation 46 : {'STM': 'heightFunction', 'ny': 512, 'nx': 64}
+Variation 47 : {'STM': 'heightFunction', 'ny': 512, 'nx': 128}

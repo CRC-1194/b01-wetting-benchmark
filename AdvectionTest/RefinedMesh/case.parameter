@@ -1,0 +1,49 @@
+values
+{
+    solver (interFlow);
+
+    nX (128 256 512 1024 2056);
+    nZ (32 64 128 256 512);
+    nY (1);
+
+    X (1); //scale is in 1e-2 for blockMesh
+    Z (0.25);
+    Y (0.01);
+
+//CONTROL DICT
+    endTime (0.5);
+
+    writeInterval (0.01);
+
+    U (0.1);
+
+    courantNo (0.01);
+
+//TRANSPORT PROPERTIES
+    alpha1Nu (2.507e-05);
+
+    alpha1Rho (1194.9);
+
+    alpha2Nu (1.516e-05);
+
+    alpha2Rho (1.2040);
+
+    sigma (0.0);
+
+//DROPLET
+   //Centre
+    dropCx (0.004);
+
+    dropCy (0.0);
+
+    dropCz (-0.001);
+
+    //Radius
+    dropRadius (0.002);
+
+    //Surface tension model
+    STM (fitParaboloid); //RDF heightFunction
+}
+
+
+

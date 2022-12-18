@@ -1,0 +1,106 @@
+
+===============================
+96 variations with 4 parameters
+===============================
+
+
+==================
+Listing variations
+==================
+
+Variation 0 : {'STM': 'RDF', 'theta0': 70, 'nz': 40, 'nx': 80}
+Variation 1 : {'STM': 'RDF', 'theta0': 70, 'nz': 40, 'nx': 100}
+Variation 2 : {'STM': 'RDF', 'theta0': 70, 'nz': 40, 'nx': 200}
+Variation 3 : {'STM': 'RDF', 'theta0': 70, 'nz': 40, 'nx': 250}
+Variation 4 : {'STM': 'RDF', 'theta0': 70, 'nz': 50, 'nx': 80}
+Variation 5 : {'STM': 'RDF', 'theta0': 70, 'nz': 50, 'nx': 100}
+Variation 6 : {'STM': 'RDF', 'theta0': 70, 'nz': 50, 'nx': 200}
+Variation 7 : {'STM': 'RDF', 'theta0': 70, 'nz': 50, 'nx': 250}
+Variation 8 : {'STM': 'RDF', 'theta0': 70, 'nz': 100, 'nx': 80}
+Variation 9 : {'STM': 'RDF', 'theta0': 70, 'nz': 100, 'nx': 100}
+Variation 10 : {'STM': 'RDF', 'theta0': 70, 'nz': 100, 'nx': 200}
+Variation 11 : {'STM': 'RDF', 'theta0': 70, 'nz': 100, 'nx': 250}
+Variation 12 : {'STM': 'RDF', 'theta0': 70, 'nz': 125, 'nx': 80}
+Variation 13 : {'STM': 'RDF', 'theta0': 70, 'nz': 125, 'nx': 100}
+Variation 14 : {'STM': 'RDF', 'theta0': 70, 'nz': 125, 'nx': 200}
+Variation 15 : {'STM': 'RDF', 'theta0': 70, 'nz': 125, 'nx': 250}
+Variation 16 : {'STM': 'RDF', 'theta0': 110, 'nz': 40, 'nx': 80}
+Variation 17 : {'STM': 'RDF', 'theta0': 110, 'nz': 40, 'nx': 100}
+Variation 18 : {'STM': 'RDF', 'theta0': 110, 'nz': 40, 'nx': 200}
+Variation 19 : {'STM': 'RDF', 'theta0': 110, 'nz': 40, 'nx': 250}
+Variation 20 : {'STM': 'RDF', 'theta0': 110, 'nz': 50, 'nx': 80}
+Variation 21 : {'STM': 'RDF', 'theta0': 110, 'nz': 50, 'nx': 100}
+Variation 22 : {'STM': 'RDF', 'theta0': 110, 'nz': 50, 'nx': 200}
+Variation 23 : {'STM': 'RDF', 'theta0': 110, 'nz': 50, 'nx': 250}
+Variation 24 : {'STM': 'RDF', 'theta0': 110, 'nz': 100, 'nx': 80}
+Variation 25 : {'STM': 'RDF', 'theta0': 110, 'nz': 100, 'nx': 100}
+Variation 26 : {'STM': 'RDF', 'theta0': 110, 'nz': 100, 'nx': 200}
+Variation 27 : {'STM': 'RDF', 'theta0': 110, 'nz': 100, 'nx': 250}
+Variation 28 : {'STM': 'RDF', 'theta0': 110, 'nz': 125, 'nx': 80}
+Variation 29 : {'STM': 'RDF', 'theta0': 110, 'nz': 125, 'nx': 100}
+Variation 30 : {'STM': 'RDF', 'theta0': 110, 'nz': 125, 'nx': 200}
+Variation 31 : {'STM': 'RDF', 'theta0': 110, 'nz': 125, 'nx': 250}
+Variation 32 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 40, 'nx': 80}
+Variation 33 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 40, 'nx': 100}
+Variation 34 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 40, 'nx': 200}
+Variation 35 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 40, 'nx': 250}
+Variation 36 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 50, 'nx': 80}
+Variation 37 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 50, 'nx': 100}
+Variation 38 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 50, 'nx': 200}
+Variation 39 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 50, 'nx': 250}
+Variation 40 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 100, 'nx': 80}
+Variation 41 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 100, 'nx': 100}
+Variation 42 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 100, 'nx': 200}
+Variation 43 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 100, 'nx': 250}
+Variation 44 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 125, 'nx': 80}
+Variation 45 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 125, 'nx': 100}
+Variation 46 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 125, 'nx': 200}
+Variation 47 : {'STM': 'fitParaboloid', 'theta0': 70, 'nz': 125, 'nx': 250}
+Variation 48 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 40, 'nx': 80}
+Variation 49 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 40, 'nx': 100}
+Variation 50 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 40, 'nx': 200}
+Variation 51 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 40, 'nx': 250}
+Variation 52 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 50, 'nx': 80}
+Variation 53 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 50, 'nx': 100}
+Variation 54 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 50, 'nx': 200}
+Variation 55 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 50, 'nx': 250}
+Variation 56 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 100, 'nx': 80}
+Variation 57 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 100, 'nx': 100}
+Variation 58 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 100, 'nx': 200}
+Variation 59 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 100, 'nx': 250}
+Variation 60 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 125, 'nx': 80}
+Variation 61 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 125, 'nx': 100}
+Variation 62 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 125, 'nx': 200}
+Variation 63 : {'STM': 'fitParaboloid', 'theta0': 110, 'nz': 125, 'nx': 250}
+Variation 64 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 40, 'nx': 80}
+Variation 65 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 40, 'nx': 100}
+Variation 66 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 40, 'nx': 200}
+Variation 67 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 40, 'nx': 250}
+Variation 68 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 50, 'nx': 80}
+Variation 69 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 50, 'nx': 100}
+Variation 70 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 50, 'nx': 200}
+Variation 71 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 50, 'nx': 250}
+Variation 72 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 100, 'nx': 80}
+Variation 73 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 100, 'nx': 100}
+Variation 74 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 100, 'nx': 200}
+Variation 75 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 100, 'nx': 250}
+Variation 76 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 125, 'nx': 80}
+Variation 77 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 125, 'nx': 100}
+Variation 78 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 125, 'nx': 200}
+Variation 79 : {'STM': 'heightFunction', 'theta0': 70, 'nz': 125, 'nx': 250}
+Variation 80 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 40, 'nx': 80}
+Variation 81 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 40, 'nx': 100}
+Variation 82 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 40, 'nx': 200}
+Variation 83 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 40, 'nx': 250}
+Variation 84 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 50, 'nx': 80}
+Variation 85 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 50, 'nx': 100}
+Variation 86 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 50, 'nx': 200}
+Variation 87 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 50, 'nx': 250}
+Variation 88 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 100, 'nx': 80}
+Variation 89 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 100, 'nx': 100}
+Variation 90 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 100, 'nx': 200}
+Variation 91 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 100, 'nx': 250}
+Variation 92 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 125, 'nx': 80}
+Variation 93 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 125, 'nx': 100}
+Variation 94 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 125, 'nx': 200}
+Variation 95 : {'STM': 'heightFunction', 'theta0': 110, 'nz': 125, 'nx': 250}

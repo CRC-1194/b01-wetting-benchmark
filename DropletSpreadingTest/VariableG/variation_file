@@ -1,0 +1,52 @@
+
+===============================
+42 variations with 3 parameters
+===============================
+
+
+==================
+Listing variations
+==================
+
+Variation 0 : {'gZ': -0.000532, 'STM': 'RDF', 'theta0': 70}
+Variation 1 : {'gZ': -0.000532, 'STM': 'RDF', 'theta0': 110}
+Variation 2 : {'gZ': -0.000532, 'STM': 'fitParaboloid', 'theta0': 70}
+Variation 3 : {'gZ': -0.000532, 'STM': 'fitParaboloid', 'theta0': 110}
+Variation 4 : {'gZ': -0.000532, 'STM': 'heightFunction', 'theta0': 70}
+Variation 5 : {'gZ': -0.000532, 'STM': 'heightFunction', 'theta0': 110}
+Variation 6 : {'gZ': -0.532, 'STM': 'RDF', 'theta0': 70}
+Variation 7 : {'gZ': -0.532, 'STM': 'RDF', 'theta0': 110}
+Variation 8 : {'gZ': -0.532, 'STM': 'fitParaboloid', 'theta0': 70}
+Variation 9 : {'gZ': -0.532, 'STM': 'fitParaboloid', 'theta0': 110}
+Variation 10 : {'gZ': -0.532, 'STM': 'heightFunction', 'theta0': 70}
+Variation 11 : {'gZ': -0.532, 'STM': 'heightFunction', 'theta0': 110}
+Variation 12 : {'gZ': -5.32, 'STM': 'RDF', 'theta0': 70}
+Variation 13 : {'gZ': -5.32, 'STM': 'RDF', 'theta0': 110}
+Variation 14 : {'gZ': -5.32, 'STM': 'fitParaboloid', 'theta0': 70}
+Variation 15 : {'gZ': -5.32, 'STM': 'fitParaboloid', 'theta0': 110}
+Variation 16 : {'gZ': -5.32, 'STM': 'heightFunction', 'theta0': 70}
+Variation 17 : {'gZ': -5.32, 'STM': 'heightFunction', 'theta0': 110}
+Variation 18 : {'gZ': -26.6, 'STM': 'RDF', 'theta0': 70}
+Variation 19 : {'gZ': -26.6, 'STM': 'RDF', 'theta0': 110}
+Variation 20 : {'gZ': -26.6, 'STM': 'fitParaboloid', 'theta0': 70}
+Variation 21 : {'gZ': -26.6, 'STM': 'fitParaboloid', 'theta0': 110}
+Variation 22 : {'gZ': -26.6, 'STM': 'heightFunction', 'theta0': 70}
+Variation 23 : {'gZ': -26.6, 'STM': 'heightFunction', 'theta0': 110}
+Variation 24 : {'gZ': -53.2, 'STM': 'RDF', 'theta0': 70}
+Variation 25 : {'gZ': -53.2, 'STM': 'RDF', 'theta0': 110}
+Variation 26 : {'gZ': -53.2, 'STM': 'fitParaboloid', 'theta0': 70}
+Variation 27 : {'gZ': -53.2, 'STM': 'fitParaboloid', 'theta0': 110}
+Variation 28 : {'gZ': -53.2, 'STM': 'heightFunction', 'theta0': 70}
+Variation 29 : {'gZ': -53.2, 'STM': 'heightFunction', 'theta0': 110}
+Variation 30 : {'gZ': -266, 'STM': 'RDF', 'theta0': 70}
+Variation 31 : {'gZ': -266, 'STM': 'RDF', 'theta0': 110}
+Variation 32 : {'gZ': -266, 'STM': 'fitParaboloid', 'theta0': 70}
+Variation 33 : {'gZ': -266, 'STM': 'fitParaboloid', 'theta0': 110}
+Variation 34 : {'gZ': -266, 'STM': 'heightFunction', 'theta0': 70}
+Variation 35 : {'gZ': -266, 'STM': 'heightFunction', 'theta0': 110}
+Variation 36 : {'gZ': -532, 'STM': 'RDF', 'theta0': 70}
+Variation 37 : {'gZ': -532, 'STM': 'RDF', 'theta0': 110}
+Variation 38 : {'gZ': -532, 'STM': 'fitParaboloid', 'theta0': 70}
+Variation 39 : {'gZ': -532, 'STM': 'fitParaboloid', 'theta0': 110}
+Variation 40 : {'gZ': -532, 'STM': 'heightFunction', 'theta0': 70}
+Variation 41 : {'gZ': -532, 'STM': 'heightFunction', 'theta0': 110}

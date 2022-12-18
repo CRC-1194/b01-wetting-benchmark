@@ -1,0 +1,144 @@
+values
+{
+    solver (interFlow);
+
+//MESHING	
+    maxCellSize
+    (
+	  0.0005
+    );
+
+
+//CONTACT ANGLE (SCA)
+    theta0
+    (
+        30 50 90 110 140
+    );
+
+//SURFACE TENSTION MODEL
+    STM
+    (
+        RDF 
+        fitParaboloid
+	heightFunction
+    );
+
+//CONTROL DICT
+    endTime
+    (
+	0.1
+    );
+  
+    writeInterval
+    (
+	0.001
+    );
+
+    U   
+    (
+        1.0
+    );
+
+    courantNo
+    (
+        0.1      
+    );
+
+//TRANSPORT PROPERTIES
+    alpha1Nu
+    (
+	2.507e-05
+    );    
+    alpha1Rho
+    (
+	1194.9
+    );
+    alpha2Nu
+    (
+	1.516e-05
+    );
+    alpha2Rho
+    (
+	1.2040
+    );
+    sigma
+    (
+	0.0635
+    );
+
+//Gravity (gX, gY, gZ)
+    gX
+    (
+	0.0	
+    );
+    gY
+    (
+	0.0
+    );
+    gZ
+    (
+	0.0
+    );
+
+
+
+//DROPLET
+    //Centre
+    dropCx
+    (
+	0.0025
+    );
+    dropCy
+    (
+	0.0025
+    );
+    dropCz
+    (
+	0.002672
+    );
+    
+    //Radius
+    dropRadius
+    (
+	0.001
+    );
+
+    //Note: adjust refMeshSize when change the slipLength
+    slipLength (0.0001);
+
+//Box REFINEMENT
+    //CellSize
+    refMeshSize
+    (
+	     0.00004
+    );
+
+    //Refinement Centre
+    refCx
+    (
+	 0.0025
+    );  
+    refCy
+    (
+	0.0025
+    );
+    refCz
+    (
+	0
+    );  
+    
+    //Refinement Length
+    refLx
+    (
+	0.003
+    );
+    refLy
+    (
+	0.003
+    );
+    refLz
+    (
+	0.0074
+    );
+}
+

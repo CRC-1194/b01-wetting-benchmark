@@ -1,0 +1,135 @@
+values
+{
+    solver (interFlow);
+   
+ //cells per radius 16 20 40 50
+    //cells in X-Y-Z directions
+    nx 
+    (
+        100
+    );
+    
+    nz
+    (
+	50
+    );
+    
+    
+    //Width / Length 
+    X
+    (
+	5
+    );
+    
+    //Height of the domain
+    Z
+    (
+	2.5
+    );
+   
+    slipLength
+    (
+    	0.0001
+    );
+      
+//CONTACT ANGLE (SCA)
+    theta0
+    (
+    	10 20 30 50 75 90 105 110 120 135 150 170
+    );
+    
+ //SURFACE TENSTION MODEL
+    STM
+    (
+         RDF 
+        fitParaboloid
+        heightFunction
+    );
+//CONTROL DICT
+    endTime
+    (
+	0.25
+    );
+  
+    writeInterval
+    (
+	0.001
+    );
+
+    U   
+    (
+        1.0
+    );
+
+    courantNo
+    (
+        0.01      
+    );
+
+    //TRANSPORT PROPERTIES
+    alpha1Nu
+    (
+        1.0e-06
+        //2.507e-05
+    );
+    alpha1Rho
+    (
+        1000
+        //1194.9
+    );
+    alpha2Nu
+    (
+        1.48e-05
+        //1.516e-05
+    );
+    alpha2Rho
+    (
+        1.0
+        //1.2040
+    );
+    sigma
+    (
+        0.072
+        //0.0635
+    );
+//Gravity (gX, gY, gZ)
+    gX
+    (
+	0.0	
+    );
+    gY
+    (
+	0.0
+    );
+    gZ
+    (
+	0.0
+    );
+
+
+
+//DROPLET
+    
+    //Centre
+    dropCx
+    (
+	0.0025
+    );
+    dropCy
+    (
+	0.0025
+    );
+    dropCz
+    (
+	0.001
+    );
+
+    //Radius
+    dropRadius
+    (
+	0.001
+    );
+
+}
+
+
