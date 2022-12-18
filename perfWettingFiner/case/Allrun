@@ -1,0 +1,49 @@
+#!/bin/sh
+cd ${0%/*} || exit 1                        # Run from this directory
+. $WM_PROJECT_DIR/bin/tools/RunFunctions    # Tutorial run functions
+
+# Preprocessing
+rm -rf 0 && cp -r 0.org 0 
+rm -rf 0/alpha.water_glycerol.template
+rm -rf constant/g.template
+rm -rf constrant/transportProperties.template
+rm -rf system/controlDict.template
+rm -rf system/meshDict.template
+rm -rf system/vofInitDict.template
+
+runApplication blockMesh
+#cp -r refined0Mesh constant/ && mv constant/refined0Mesh constant/polyMesh
+runApplication checkMesh
+
+# Initialization
+runApplication surfaceInitVolumeFraction
+
+# Postprocessing
+#runApplication foamToVTK
+#------------------------------------------------------------------------------
+
+#####
+#cd ${0%/*} || exit 1    # run from this directory
+
+# Source tutorial run functions
+#. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+#rm -rf 0 && cp -r 0.org 0 
+#runApplication cartesianMesh
+#runApplication checkMesh
+
+#runApplication setFields
+#rm -rf 0/alpha.water.*
+# Initialization
+#runApplication surfaceInitVolumeFraction
+
+# Postprocessing
+#runApplication foamToVTK
+#------------------------------------------------------------------------------
+#runApplication decomposePar
+
+#application $(getApplication)
+
+#runApplication  $(getApplication) 
+
+# ----------------------------------------------------------------- end-of-file

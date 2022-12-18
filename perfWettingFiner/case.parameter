@@ -1,0 +1,108 @@
+values
+{
+    solver (interFlow);
+
+    nX (341);
+    nY (341);
+    nZ (60);
+    X (5.0); //scale is in mm for blockMesh
+    Z (0.88);
+    
+    
+//CONTACT ANGLE (SCA)
+    theta0
+    (
+    	3 5 7 10
+    );
+    
+ //SURFACE TENSTION MODEL
+    STM
+    (
+       heightFunction
+       RDF 
+       fitParaboloid
+    );
+//CONTROL DICT
+    endTime
+    (
+	0.15
+    );
+  
+    writeInterval
+    (
+	0.001
+    );
+
+    U   
+    (
+        1.0
+    );
+
+    courantNo
+    (
+        0.001      
+    );
+
+    //TRANSPORT PROPERTIES
+    alpha1Nu
+    (
+        5e-6 2.507e-05
+    );
+    alpha1Rho
+    (
+        913.0 1194.9
+    );
+    alpha2Nu
+    (
+        1.516e-05
+    );
+    alpha2Rho
+    (
+        1.2040
+    );
+    sigma
+    (
+        0.02 0.0635
+    );
+//Gravity
+    gX
+    (
+	0.0	
+    );
+    gY
+    (
+	0.0
+    );
+    gZ
+    (
+	0.0
+    );
+
+
+
+//DROPLET
+//Centre
+    dropCx
+    (
+	0.0025
+    );
+    dropCy
+    (
+	0.0025
+    );
+    dropCz
+    (
+	0.00
+    );
+
+
+//Radius
+    dropRadius
+    (
+	0.0006
+    );
+
+
+}
+
+

@@ -1,0 +1,106 @@
+
+===============================
+96 variations with 5 parameters
+===============================
+
+
+==================
+Listing variations
+==================
+
+Variation 0 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 3}
+Variation 1 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 5}
+Variation 2 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 7}
+Variation 3 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 10}
+Variation 4 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 3}
+Variation 5 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 5}
+Variation 6 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 7}
+Variation 7 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 10}
+Variation 8 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 3}
+Variation 9 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 5}
+Variation 10 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 7}
+Variation 11 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 10}
+Variation 12 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 3}
+Variation 13 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 5}
+Variation 14 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 7}
+Variation 15 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 10}
+Variation 16 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 3}
+Variation 17 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 5}
+Variation 18 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 7}
+Variation 19 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 10}
+Variation 20 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 3}
+Variation 21 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 5}
+Variation 22 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 7}
+Variation 23 : {'sigma': 0.02, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 10}
+Variation 24 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 3}
+Variation 25 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 5}
+Variation 26 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 7}
+Variation 27 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 10}
+Variation 28 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 3}
+Variation 29 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 5}
+Variation 30 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 7}
+Variation 31 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 10}
+Variation 32 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 3}
+Variation 33 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 5}
+Variation 34 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 7}
+Variation 35 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 10}
+Variation 36 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 3}
+Variation 37 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 5}
+Variation 38 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 7}
+Variation 39 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 10}
+Variation 40 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 3}
+Variation 41 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 5}
+Variation 42 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 7}
+Variation 43 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 10}
+Variation 44 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 3}
+Variation 45 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 5}
+Variation 46 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 7}
+Variation 47 : {'sigma': 0.02, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 10}
+Variation 48 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 3}
+Variation 49 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 5}
+Variation 50 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 7}
+Variation 51 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 10}
+Variation 52 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 3}
+Variation 53 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 5}
+Variation 54 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 7}
+Variation 55 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 10}
+Variation 56 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 3}
+Variation 57 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 5}
+Variation 58 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 7}
+Variation 59 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 10}
+Variation 60 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 3}
+Variation 61 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 5}
+Variation 62 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 7}
+Variation 63 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 10}
+Variation 64 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 3}
+Variation 65 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 5}
+Variation 66 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 7}
+Variation 67 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 10}
+Variation 68 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 3}
+Variation 69 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 5}
+Variation 70 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 7}
+Variation 71 : {'sigma': 0.0635, 'alpha1Rho': 913.0, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 10}
+Variation 72 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 3}
+Variation 73 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 5}
+Variation 74 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 7}
+Variation 75 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'heightFunction', 'theta0': 10}
+Variation 76 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 3}
+Variation 77 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 5}
+Variation 78 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 7}
+Variation 79 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'RDF', 'theta0': 10}
+Variation 80 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 3}
+Variation 81 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 5}
+Variation 82 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 7}
+Variation 83 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 5e-06, 'STM': 'fitParaboloid', 'theta0': 10}
+Variation 84 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 3}
+Variation 85 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 5}
+Variation 86 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 7}
+Variation 87 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'heightFunction', 'theta0': 10}
+Variation 88 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 3}
+Variation 89 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 5}
+Variation 90 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 7}
+Variation 91 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'RDF', 'theta0': 10}
+Variation 92 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 3}
+Variation 93 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 5}
+Variation 94 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 7}
+Variation 95 : {'sigma': 0.0635, 'alpha1Rho': 1194.9, 'alpha1Nu': 2.507e-05, 'STM': 'fitParaboloid', 'theta0': 10}
