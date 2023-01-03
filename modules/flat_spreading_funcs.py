@@ -72,35 +72,6 @@ class Funcs:
             files = [fN+dataFile for fN in datafolders]
             fileNames.append(files[0])
         return(fileNames)
-    
-   # @classmethod
-    #Function gives dictionary mapping variation number to parameter vector
-  #  def fileMapping(self,label):
-  #      cwd = os.getcwd()
-  #      casefolders = [folder for folder in os.listdir(cwd) if label in folder] 
-  #      casefolders.sort()
-  #      mapNumber = [int(num.split('_')[1]) for num in  casefolders ]
-  #      var_map = {}
-  #      var_lines = open("variation_file").readlines()
-  #      nX =[]
-
-  #      for line in var_lines:
-  #          # Skip lines without mapping
-  #          if '{' not in line:
-  #              continue
-  #          var_num = int(line.split()[1])
-  #          if(var_num in mapNumber):
-  #              dict_start = line.find('{')
-  #              # Mappings in variation file can directly be interpreted by Python
-  #              var_map[var_num] = ast.literal_eval(line[dict_start:-1])
-  
-
-  #      for key, value in var_map.items():
-  #          ms = str(value).split(', ')[2][:-1]
-  #          meshSize = ms.split(': ')[-1]
-  #          nX.append( int(0.001/float(meshSize))) 
-  #      return (nX)
-
 
     @classmethod
     def fileMapping(self,label, sm):
@@ -120,7 +91,6 @@ class Funcs:
                     dict_start = line.find('{')
                     # Mappings in variation file can directly be interpreted by Python
                     var_map[var_num] = ast.literal_eval(line[dict_start:-1])
-
         return (var_map)
 
 #reads the surface .vtk file

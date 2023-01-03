@@ -48,7 +48,7 @@ values
     
     gY
     (
-        6.51
+        4.17
         //  1.04 6.51 4.17 26.042 
     );
     
@@ -66,7 +66,7 @@ values
     //Total time of the simulation
     endTime
     (
-        1.2
+        0.7
     );
     
     //Output interval 
@@ -78,7 +78,7 @@ values
     //Surface tension   
     sigma
     (
-	0.1
+	0.04
         //  0.2 0.1 0.04 0.01 0.001
     );
 
@@ -91,21 +91,21 @@ values
     //Density of the alpha1 fluid
     alpha1Rho
     (
-	133.0
+	83.1
 	//1663.8 133.0 83.1 3.3255 0.33255
     );
 
     //MAximum capillary number for the simulation    
     maxCa
     (
-	0.015
+	0.029
         //  0.003 0.015 0.029 0.106 0.110
     );
 
-    //0.001 length for Navier slip
+    //0.0001 length for Navier slip
     slipLength
     (
-        0.001
+        0.0001
     );
 
     //Surface tension model

@@ -62,41 +62,50 @@ class Funcs:
 
     @classmethod
     #Function gives dictionary mapping variation number to parameter vector
-    def fileMapping(self,Omega):
+    def fileMapping(self,label, sm):
         cwd = os.getcwd()
-        casefolders = [folder for folder in os.listdir(cwd) if Omega in folder] 
+        casefolders = [folder for folder in os.listdir(cwd) if label in folder] 
         casefolders.sort()
         mapNumber = [int(num.split('_')[1]) for num in  casefolders ]
-
         var_map = {}
         var_lines = open("variation_file").readlines()
-        nX =[]
-
         for line in var_lines:
-            # Skip lines without mapping
+                # Skip lines without mapping
             if '{' not in line:
                 continue
-            var_num = int(line.split()[1])
-            if(var_num in mapNumber):
-                dict_start = line.find('{')
-        # Mappings in variation file can directly be interpreted by Python
-                var_map[var_num] = ast.literal_eval(line[dict_start:-1])
+            if sm in line:
+                var_num = int(line.split()[1])
+                if(var_num in mapNumber):
+                    dict_start = line.find('{')
+                    # Mappings in variation file can directly be interpreted by Python
+                    var_map[var_num] = ast.literal_eval(line[dict_start:-1])
 
-        for key, value in var_map.items():
-            ms = str(value).split(', ')[1][:-1]
-            meshSize = ms.split(': ')[1]
-            nX.append( int(meshSize)) 
-        return (nX)
-
+        return (var_map)
+        
 #Form a specific file structure for the case. It makes parsing easy.
     @classmethod
-    def fileStructure(self,dataFile, pattern):
+    def fileStructure(self,dataFolder, dataFile, pattern, var_list):
+        fileNames = []
         #File structure    
-        dataFolder = "/postProcessing/"
         dataFile = dataFile
         cwd = os.getcwd()
-        casefolders = [cwd + "/" + folder for folder in os.listdir(cwd) if pattern in folder]    
-        datafolders = [df+dataFolder for df in casefolders]
-        datafolders.sort()
-        fileNames = [fN+dataFile for fN in datafolders]
+        for idx, id in enumerate(var_list):
+            casefolders = [cwd + "/" + folder for folder in os.listdir(cwd) if pattern in folder and var_list[idx] in folder]    
+            datafolders = [df+dataFolder for df in casefolders] 
+            datafolders.sort()
+            files = [fN+dataFile for fN in datafolders]
+            fileNames.append(files[0])
         return(fileNames)
+        
+#Form a specific file structure for the case. It makes parsing easy.
+ #   @classmethod
+ #   def fileStructure(self,dataFile, pattern):
+        #File structure    
+  #      dataFolder = "/postProcessing/"
+  #      dataFile = dataFile
+  #      cwd = os.getcwd()
+  #      casefolders = [cwd + "/" + folder for folder in os.listdir(cwd) if pattern in folder]    
+  #      datafolders = [df+dataFolder for df in casefolders]
+  #      datafolders.sort()
+  #      fileNames = [fN+dataFile for fN in datafolders]
+  #      return(fileNames)
