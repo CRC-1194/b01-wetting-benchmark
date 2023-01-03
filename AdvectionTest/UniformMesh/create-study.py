@@ -50,7 +50,9 @@ if __name__ == "__main__":
         sys.exit(1)
 
     (options, args) = parser.parse_args()
-    numberOfVariations = [0, 6, 12, 18, 24]
+    #numberOfVariations = [0, 6, 12, 18, 24] #hf
+    #numberOfVariations = [25,31,37,43,49] #RDF
+    numberOfVariations = [50,56,62,68,74] #fp
     study_name = options.studyname
     
     for nVar in numberOfVariations:

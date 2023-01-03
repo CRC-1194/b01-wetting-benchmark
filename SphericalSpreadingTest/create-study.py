@@ -52,8 +52,8 @@ if __name__ == "__main__":
     (options, args) = parser.parse_args()
     
     #numberOfVariations = [0,1,2,3,4] #RDF
-    numberOfVariations = [5,6,7,8,9] #fitParaboloid
-    #numberOfVariations = [10,11,12,13,14] #HF    
+    #numberOfVariations = [5,6,7,8,9] #fitParaboloid
+    numberOfVariations = [10,11,12,13,14] #HF    
     study_name = options.studyname
     
     for nVar in numberOfVariations:

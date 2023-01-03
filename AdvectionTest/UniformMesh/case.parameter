@@ -42,7 +42,7 @@ values
     dropRadius (0.002);
 
     //Surface tension model
-    STM (fitParaboloid); //RDF heightFunction
+    STM (heightFunction RDF fitParaboloid); //RDF heightFunction
 }
 
 

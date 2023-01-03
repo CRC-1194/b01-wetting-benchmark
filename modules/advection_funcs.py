@@ -1,6 +1,7 @@
 import numpy as np
 import math
 import ast
+import os
 
 class Funcs:
     ''' ODE model based on
@@ -90,25 +91,63 @@ class Funcs:
                 diff = diff_temp
 
         return abs(diff)
+        
+    #Form a specific file structure for the case. It makes parsing easy.
+    @classmethod
+    def fileStructure(self,dataFolder, dataFile, pattern, var_list):
+        fileNames = []
+        #File structure    
+        dataFile = dataFile
+        cwd = os.getcwd()
+        for idx, id in enumerate(var_list):
+            casefolders = [cwd + "/" + folder for folder in os.listdir(cwd) if pattern in folder and var_list[idx] in folder]    
+            datafolders = [df+dataFolder for df in casefolders] 
+            datafolders.sort()
+            files = [fN+dataFile for fN in datafolders]
+            fileNames.append(files[0])
+        return(fileNames)
+    
+    @classmethod
+    #Function to provide the volume fraction value for the Error calculation
+    #It reads the alpha1 file
+    def getAlphaValues(self,file):
+        alpha_0=[]
+        with open(file) as reader:
+            ifAlphaArray = 0
+            ifCoordArray = 0 
+            for line in reader:
+                if "internalField" in line: #start of alpha values
+                    ifAlphaArray = ifAlphaArray +1            
 
+                if ifAlphaArray >0 and ifAlphaArray<=4:
+                    ifAlphaArray = ifAlphaArray +1
+	
+                if "\n" not in line[0] and ifAlphaArray ==5 and "internalField" not in line and ")" not in line:
+                    alphaBreakUp = line.split()
+                    alpha_0.append(float(alphaBreakUp[0]))
+
+                if ")" in line[0] and ifAlphaArray ==5:
+                    ifAlphaArray = ifAlphaArray +1 
+            return(alpha_0)
+        
     @classmethod
     #Function gives dictionary mapping variation number to parameter vector
-    def fileMapping(self):
+    def fileMapping(self,label, sm):
+        cwd = os.getcwd()
+        casefolders = [folder for folder in os.listdir(cwd) if label in folder] 
+        casefolders.sort()
+        mapNumber = [int(num.split('_')[1]) for num in  casefolders ]
         var_map = {}
         var_lines = open("variation_file").readlines()
-        nX =[]
-
         for line in var_lines:
-        # Skip lines without mapping
+                # Skip lines without mapping
             if '{' not in line:
                 continue
-            var_num = int(line.split()[1])
-            dict_start = line.find('{')
-            # Mappings in variation file can directly be interpreted by Python
-            var_map[var_num] = ast.literal_eval(line[dict_start:-1])
+            if sm in line:
+                var_num = int(line.split()[1])
+                if(var_num in mapNumber):
+                    dict_start = line.find('{')
+                    # Mappings in variation file can directly be interpreted by Python
+                    var_map[var_num] = ast.literal_eval(line[dict_start:-1])
 
-        for key, value in var_map.items():
-            meshSize = str(value).split(': ')[1][:-1]
-            nX.append( int(1.0/float(meshSize)) )
-
-        return nX
+        return (var_map)
