@@ -6,11 +6,13 @@ The benchmark suite provides four verification and validation studies of a numer
 
 ### 1. [Interface Advection Test](./Interface Advection Test) 
 
-<img align="center" src="./READMEFigures/interfaceAdvection.png" alt="drawing" width="450"/>
+<img align="center" src="./AdvectionTest/UniformMesh/interfaceAdvection.png" alt="drawing" width="450"/>
 
-In this verification study, we consider the advection of the interface using a divergence-free velocity field and report the accuracy of the interface advection near walls. It has been shown in [Fricke et al.](https://doi.org/10.1016/j.physd.2019.01.008) that the contact line advection problem is a well-posed initial value problem if the velocity field is sufficiently regular and tangential to the domain boundary. The interface's motion and the contact angle's evolution can be computed from the velocity field and the initial geometry. Moreover, [Fricke et al.](https://doi.org/10.1016/j.jcp.2019.109221) formulated an ODE system to describe the evolution of the contact angle $`\theta`$. 
-Numerical contact angle is calculated by the interface normal $`n_{\Sigma}`$ and patch face normal $`n_{\partial\Omega}`$ as, \
-$`\theta = \cos^{-1}(\langle - \textbf{n}_{\Sigma}(t, \textbf{x}(t)), \textbf{n}_{\partial\Omega}\rangle).`$ \
+In this verification study, we consider the advection of the interface using a divergence-free velocity field and report the accuracy of the interface advection near walls. It has been shown in [Fricke et al.](https://doi.org/10.1016/j.physd.2019.01.008) that the contact line advection problem is a well-posed initial value problem if the velocity field is sufficiently regular and tangential to the domain boundary. The interface's motion and the contact angle's evolution can be computed from the velocity field and the initial geometry. Moreover, [Fricke et al.](https://doi.org/10.1016/j.jcp.2019.109221) formulated an ODE system to describe the evolution of the contact angle $\theta$. 
+Numerical contact angle is calculated by the interface normal $\textbf{n}_{\Sigma}$ and patch face normal $\textbf{n}_{\partial\Omega}$ as, 
+
+$\theta = \cos^{-1}(\langle - \textbf{n}_{\Sigma}(t, \textbf{x}(t)), \textbf{n}_{\partial\Omega}\rangle).$ 
+
 The test case is carried out for a uniform and non-uniform graded 2D cartesian mesh.
 
 
@@ -18,20 +20,20 @@ The test case is carried out for a uniform and non-uniform graded 2D cartesian m
 
 <img align="center" src="./DropletSpreadingTest/MeshConvergence/DropletSpreading.png" alt="drawing" width="600"/>
 
-For this case study, we have considered a droplet spreading on a flat surface ([Dupont and Legendre](https://doi.org/10.1016/j.jcp.2009.07.034) ,  [Fricke et. al](https://doi.org/10.48550/arXiv.2003.04914)) that allows for studying the effect of the static contact angle boundary condition and the Bond number, $`Bo = \frac{\rho_l g R_0}{\sigma}`$ on the equilibrium shape of the droplet. Ideally, surface tension forces dominate for a droplet that spreads with $`Bo\ll1`$, and the droplet at equilibrium maintains a spherical cap shape and satisfies the contact angle boundary condition. On the other hand, for $`Bo\gg1`$, the gravitational forces dominate, and the droplet forms a puddle, whose height is directly proportional to the capillary length, $`l_{Ca}=\sqrt{\frac{\sigma}{\rho_l g}}`$. The conservation of the droplet's volume $`V`$ with an equilibrium contact angle $`\theta_e`$ allows formulation of the geometrical relations that define the equilibrium shape of the droplet. In addition to observing droplets at equilibrium, we have also studied the mesh convergence of the spreading droplets.
+For this case study, we have considered a droplet spreading on a flat surface ([Dupont and Legendre](https://doi.org/10.1016/j.jcp.2009.07.034) ,  [Fricke et. al](https://doi.org/10.48550/arXiv.2003.04914)) that allows for studying the effect of the static contact angle boundary condition and the Bond number, $Bo = \frac{\rho_l g R_0}{\sigma}$ on the equilibrium shape of the droplet. Ideally, surface tension forces dominate for a droplet that spreads with $Bo\ll1$, and the droplet at equilibrium maintains a spherical cap shape and satisfies the contact angle boundary condition. On the other hand, for $Bo\gg1$, the gravitational forces dominate, and the droplet forms a puddle, whose height is directly proportional to the capillary length, $l_{Ca}=\sqrt{\frac{\sigma}{\rho_l g}}$. The conservation of the droplet's volume $V$ with an equilibrium contact angle $\theta_e$ allows formulation of the geometrical relations that define the equilibrium shape of the droplet. In addition to observing droplets at equilibrium, we have also studied the mesh convergence of the spreading droplets.
 
 
 ### 3. [Droplet Spreading over a spherical surface](./SphericalSpreadingTest)
-<img align="center" src="./READMEFigures/SphericalSpreading.png" alt="drawing" width="400"/>
+<img align="center" src="./SphericalSpreadingTest/SphericalSpreading.png" alt="drawing" width="600"/>
 
-In this study, we consider a droplet spreading over a spherical surface for a very small Bond number ($`Bo\ll1`$), as described by [Patel et. al](https://doi.org/10.1016/j.ces.2017.03.012). This case study allows studying the spreading of a droplet over a complex surface discretized using an unstructured Cartesian three-dimensional mesh refined locally around the spherical object. We compare the droplet geometrical charactersitics (contact radius $`r`$) and height ($`e`$) at the equilibrium.
+In this study, we consider a droplet spreading over a spherical surface for a very small Bond number ($Bo\ll1$), as described by [Patel et. al](https://doi.org/10.1016/j.ces.2017.03.012). This case study allows studying the spreading of a droplet over a complex surface discretized using an unstructured Cartesian three-dimensional mesh refined locally around the spherical object. We compare the droplet geometrical charactersitics (contact radius $r$) and height ($e$) at the equilibrium.
 
 ### 4. [2D Capillary Rise](./2DCapillaryRiseTest)
 <img align="center" src="./2DCapillaryRiseTest/2DCapillaryRise.png" alt="drawing" width="300"/>
 
-In this validation study, we consider the rising of a liquid column between two planar surfaces. We present the results of the mesh convergence study of a 2D capillary rise with no-slip and resolved partial slip boundary condition. We present the comparison of the plicRDF-isoAdvector method with other numerical methods, 1. the OpenFOAM solver interTrackFoam, an Arbitrary Lagrangian-Eulerian (ALE) method, 2. the Free Surface 3D (FS3D), an in-house two-phase flow solver implying the geometric Volume-of-Fluid (VOF) method, 3. the OpenFOAM-based algebraic VOF solver, interFoam, 4. the Bounded Support Spectral Solver (BoSSS) is based on the extended discontinuous Galerkin method. As discussed by [Gründing et. al](https://doi.org/10.1016/j.apm.2020.04.020), the dynamics of capillary rise can be controlled by a non-dimensionless group, $`\Omega`$, defined as
+In this validation study, we consider the rising of a liquid column between two planar surfaces. We present the results of the mesh convergence study of a 2D capillary rise with no-slip and resolved partial slip boundary condition. We present the comparison of the plicRDF-isoAdvector method with other numerical methods, 1. the OpenFOAM solver interTrackFoam, an Arbitrary Lagrangian-Eulerian (ALE) method, 2. the Free Surface 3D (FS3D), an in-house two-phase flow solver implying the geometric Volume-of-Fluid (VOF) method, 3. the OpenFOAM-based algebraic VOF solver, interFoam, 4. the Bounded Support Spectral Solver (BoSSS) is based on the extended discontinuous Galerkin method. As discussed by [Gründing et. al](https://doi.org/10.1016/j.apm.2020.04.020), the dynamics of capillary rise can be controlled by a non-dimensionless group, $\Omega$, defined as
 
-$`\Omega = \sqrt{\frac{9\sigma\cos\theta \mu^2}{\rho^3g^2R^5}}`$
+$\Omega = \sqrt{\frac{9\sigma\cos\theta \mu^2}{\rho^3g^2R^5}}$
 
 ## Installation
 Following instructions will get a copy of the benchmark suite up and running on a local/remote machine.
@@ -184,9 +186,9 @@ For the `AdvectionTest/UniformMesh` case study, the `postProcessing/` directory 
 
 **Note** for geometrical shape error,
 
-$`E_1 = \sum_{c} |\alpha_{c}(\tau) - \alpha_{c}(0)|V_c,`$
+$E_1 = \sum_{c} |\alpha_{c}(\tau) - \alpha_{c}(0)|V_c,$
 
-the volume fraction $`\alpha_{c}(0)`$ at $`t=0`$ and $`\alpha_{c}(\tau)`$ at $`t=\tau`$ is also required.
+the volume fraction $\alpha_{c}(0)$ at $t=0$ and $\alpha_{c}(\tau)$ at $t=\tau$ is also required.
 
 ### Data file structure
 
@@ -201,7 +203,7 @@ We will show the structure of the `*.csv` files for every function object.
 
 - `wettedArea`
 
-| Time (sec) | wetted area ($`mm^2`$) |
+| Time (sec) | wetted area ($mm^2$) |
 | ------ | ------ |
 | 0.001 | 4.31 |
 | 0.002 | 6.23 |
