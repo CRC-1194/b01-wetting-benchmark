@@ -31,6 +31,7 @@ License
 
 #include <iostream>
 
+#include "alphaContactAngleTwoPhaseFvPatchScalarField.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
@@ -43,22 +44,20 @@ namespace Foam {
 
     wettedArea::wettedArea(
             const word & name,
-            const Time & time,
-            const dictionary & dict
+                const Time & time,
+                    const dictionary & dict
         ):
         functionObject(name),
         time_(time),
         mesh_(time.lookupObject < fvMesh > (polyMesh::defaultRegion)),
         fieldName_(dict.lookup("phaseIndicator")),
-        patchName_(dict.lookup("patchName")),
         alpha1_(
             mesh_.lookupObject < volScalarField >
             (
                 fieldName_
             )
         ),
-        wettedArea_(0)
-    {}
+        wettedArea_(0) {}
 
     // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
@@ -68,40 +67,47 @@ namespace Foam {
     }
 
     bool wettedArea::execute() {
-        calcWettedArea();
+        calculateWettedArea();
         report();
         return true;
     }
 
-    //Estimates the wetted area (submerged area of a specific patch in the trasported fluid)
-    void wettedArea::calcWettedArea() {
+    /// Estimates the wetted area (submerged area of a specific patch in the transported fluid)
+    void wettedArea::calculateWettedArea() {
         wettedArea_ = 0;
-        //get the patch ID number
-        label patchID = mesh_.boundaryMesh().findPatchID(patchName_);
+        forAll(mesh_.boundary(), patch) {
+            // Check if the patch is an alphaContactAngleTwoPhaseFvPatchScalarField
+            const volScalarField::Boundary& abf = alpha1_.boundaryField();
+            if (isA<alphaContactAngleTwoPhaseFvPatchScalarField>(abf[patch])) {
+                // Get the patch name and ID number
+                const word& patchName = mesh_.boundary()[patch].name();
+                label patchID = mesh_.boundaryMesh().findPatchID(patchName);
 
-        //Lookup the desired alpha values on the patch
-        const fvPatchField < scalar > & alphaPatchField = alpha1_.boundaryField()[patchID];
+                // Lookup the desired alpha values on the patch
+                const fvPatchField<scalar>& alphaPatchField = alpha1_.boundaryField()[patchID];
 
-        //- Get boundary mesh
-        const fvBoundaryMesh & boundary = mesh_.boundary();
-        //- Get desired path mesh from boundary mesh
-        const fvPatch & patch = boundary[patchID];
-        //- Get Area normal vectors of the desired patch
-        const vectorField & patchSf = patch.Sf();
+                // Get the boundary mesh and the specific patch
+                const fvBoundaryMesh& boundary = mesh_.boundary();
+                const fvPatch& patch = boundary[patchID];
 
-        //- Calculation of the wetted area
-        forAll(patchSf, cellI) {
-            wettedArea_ += mag(patchSf[cellI]) * alphaPatchField[cellI];
-        }
-
-        // Sync sum across processors
+                // Get the area normal vectors of the patch
+                const vectorField& patchSf = patch.Sf();
+                // Calculate the wetted area by summing up the product of the area normal vectors and the alpha values
+                forAll(patchSf, cellI) {
+                    if (alphaPatchField[cellI] !=0) wettedArea_ += mag(patchSf[cellI]) * alphaPatchField[cellI];
+                }
+            }
+	}
+	// Synchronize the sum across processors
         reduce(wettedArea_, sumOp<scalar>());
     }
 
+
+
     //- Report at the console output / log file
     void wettedArea::report() {
-        Info << endl << "Phase " << fieldName_ << " has " << (wettedArea_*1000000) <<
-            " m^2 wetted area at time step" << time_.value()<< endl;
+        Info << endl << "Phase " << fieldName_ << " has " << (wettedArea_ * 1000000) <<
+            " m^2 wetted area at time step" << time_.value() << endl;
     }
 
     bool wettedArea::start() {
@@ -114,27 +120,24 @@ namespace Foam {
     }
 
     bool wettedArea::write() {
-      if (Pstream::master())
-      {
+    // Only the master processor writes to the output file
+    if (Pstream::master()) {
+        // Check if the current time step should be written to file
         if (time_.writeTime()) {
-            // Create the output path directory
+            // Create the output directory
             fileName outputDir = "postProcessing";
-            // Createe the directory
-            mkDir(outputDir);
-            // File pointer to direct the output to
-            autoPtr < OFstream > outputFilePtr;
-            // Open the file in the newly created directory
-            outputFilePtr.reset(new OFstream(outputDir/"wettedArea.csv",
-                                IOstreamOption(),
-                                true));
+            mkDir(outputDir); // Create the directory
 
-            // Write stuff
-            outputFilePtr() << time_.value() << ","
-                            << wettedArea_*1000000 << endl;
+            // Open the output file in the newly created directory
+            autoPtr<OFstream> outputFilePtr(new OFstream(outputDir / "wettedArea.csv", IOstreamOption(), true));
+
+            // Write the current time and the wetted area (in square meters) to the file
+            *outputFilePtr << time_.value() << "," << wettedArea_ * 1000000 << endl;
         }
-      }
-      return true;
     }
+    return true;
+}
+
 
 }
 // ************************************************************************* //

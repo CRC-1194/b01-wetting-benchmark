@@ -5,8 +5,6 @@
     \\  /    A nd           | www.openfoam.com
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
-    Copyright (C) 2021 AUTHOR, AFFILIATION
--------------------------------------------------------------------------------
 License
     This file is part of OpenFOAM.
 
@@ -23,13 +21,20 @@ License
     You should have received a copy of the GNU General Public License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
-SourceFiles
-    wettedArea.C
-    
-Description:
-	Calculates the wetted area of the specified patch 
-	and write it in a .csv file
+Class
+    Foam::functionObjects::contactAngle3D
 
+SourceFiles
+    contactAngle3D.C
+
+Description
+    Calculate the contact angle in 3D simulation domain
+    
+    From the interface cells at the wall,
+    identifies the contact line cell by reconstructing the signed distances at the vertices of the cell
+    and calculates the distance of the contact line from the central axis of the drop.
+
+    
 Author
     Muhammad Hassan Asghar
     asghar@mma.tu-darmstadt.de, hassan.asghar@tu-darmstadt.de
@@ -40,23 +45,25 @@ Author
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef wettedArea_H
-#define wettedArea_H
+#ifndef contactAngle3D_H
+#define contactAngle3D_H
 
 #include "functionObject.H"
 
 #include "volFields.H"
 
 #include "OFstream.H"
+
+
  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam {
 
     /*---------------------------------------------------------------------------*\
-                       Class wettedArea Declaration
+                       Class contactAngleEvluation Declaration
     \*---------------------------------------------------------------------------*/
 
-    class wettedArea
+    class contactAngle3D
         :
         public functionObject {
             // Private Data
@@ -73,18 +80,51 @@ namespace Foam {
             //- Reference to the phase indicator.
             const volScalarField & alpha1_;
 
-            //- Wetted Area total.
-            scalar wettedArea_;
+            const volVectorField & plicNormals_;
+
+            const volVectorField & plicCentres_;
+
+
+            // stores the contact angle field
+            volScalarField contactAngles_;
+
+            // stores the contact radius field
+            //volScalarField rf_;
+
+            // stores the wisps as field for visualization
+            volScalarField wisp_;
+
+            volScalarField advPos_;
+
+            volScalarField recPos_;
+            
+            //min contact angle in the domain
+            scalar contactAnglemin_;
+
+            // maximum contact angle in the domain
+            scalar contactAnglemax_;
+
+            //Maximum contact radius
+            scalar rfMax_;
+          
+            
+            DynamicList <scalar> contactAngle;
+            
+            //tolerance for cell to be the interface cell
+            scalar alphaTol_ = 1e-8;
+            
+            // wisp tolerance to mark if a cellis a wisp or not
+            scalar wispTol_ = 1e-04;
 
             public:
 
                 //- Runtime type information
-                TypeName("wettedArea");
+                TypeName("contactAngle3D");
 
             // Constructors
 
             //- Construct from Time and dictionary
-            wettedArea
+            contactAngle3D
                 (
                     const word & name,
                         const Time & time,
@@ -92,13 +132,13 @@ namespace Foam {
                 );
 
             //- No copy construct
-            wettedArea(const wettedArea & ) = delete;
+            contactAngle3D(const contactAngle3D & ) = delete;
 
             //- No copy assignment
-            void operator = (const wettedArea & ) = delete;
+            void operator = (const contactAngle3D & ) = delete;
 
             //- Destructor
-            virtual~wettedArea() =
+            virtual~contactAngle3D() =
                 default;
 
             // Member Functions
@@ -107,7 +147,7 @@ namespace Foam {
                 return time_;
             }
 
-            //- Read the wettedArea data
+            //- Read the contactAngle3D data
             virtual bool read(const dictionary & dict);
 
             //- Execute, currently does nothing
@@ -116,15 +156,24 @@ namespace Foam {
             //- Called at the start of the time-loop
             virtual bool start();
 
-            //- Calculate the wetted area
-            void calculateWettedArea();
+       	    void maxRf (const volScalarField& rf_);
+
+	     //- Calculate the contact angle
+            void calContactAngle();
+
+	    // marks the bulk cells that are wisps (Maric et. al.)
+            void checkWisps();
+
+            //- Calculate the rf_ //Distance from central axis of the drop to the contact line cell
+            void calRf(label bCell, const volVectorField& C, int &rcount);
 
             void report();
             //- Execute at the final time-loop, currently does nothing
             virtual bool end();
 
-            //- Write the wettedArea
+            //- Write the contactAngle3D
             virtual bool write();
+            
         };
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

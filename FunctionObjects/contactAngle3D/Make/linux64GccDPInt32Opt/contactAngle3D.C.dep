@@ -1,6 +1,6 @@
-$(OBJECTS_DIR)/wettedArea.C.dep: \
-wettedArea.C \
-wettedArea.H \
+$(OBJECTS_DIR)/contactAngle3D.C.dep: \
+contactAngle3D.C \
+contactAngle3D.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/functionObject.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/typeInfo.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/error.H \
@@ -584,6 +584,7 @@ $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/volFieldsI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/OFstream.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fstreamPointer.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/addToRunTimeSelectionTable.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/vectorList.H \
 $(WM_PROJECT_DIR)/src/transportModels/interfaceProperties/lnInclude/alphaContactAngleTwoPhaseFvPatchScalarField.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedGradientFvPatchFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedGradientFvPatchField.H \
