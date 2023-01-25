@@ -37,7 +37,7 @@ $\Omega = \sqrt{\frac{9\sigma\cos\theta \mu^2}{\rho^3g^2R^5}}$
 
 ## Installation
 Following instructions will get a copy of the benchmark suite up and running on a local/remote machine.
-The current study is based on the Volume-of-Fluid method based OpenFOAM's solver `interFlow`. The available Jupyter notebooks used for post-processing and visualization can be used by an OpenFOAM user and any other simulation software user, provided the files storing the secondary data (error norms) are organized as described in the README.md file.   
+The current study is based on the Volume-of-Fluid method based OpenFOAM's solver [interFlow](https://github.com/DLR-RY/TwoPhaseFlow/tree/of2112#readme). The available Jupyter notebooks used for post-processing and visualization can be used by an OpenFOAM user and any other simulation software user, provided the files storing the secondary data (error norms) are organized as described in the README.md file.   
 
 ### Compilation & Installation dependencies
 
