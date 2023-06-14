@@ -2,6 +2,11 @@
 
 The benchmark suite provides four verification and validation studies of a numerical method for wetting.
 
+# Publication
+
+[1] Asghar, M. H., Fricke, M., Bothe, D., \& Maric, T. (2023). Numerical wetting benchmarks $-$ advancing the plicRDF-isoAdvector unstructured Volume-of-Fluid (VOF) method [arXiv](https://doi.org/10.48550/arxiv.2302.02629)
+
+
 ## Test Cases
 
 ### 1. [Interface Advection Test](./Interface Advection Test) 
