@@ -1,0 +1,52 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2106                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+#include "blockMeshDict"
+
+XC #eval {$R0};
+ZC #eval {$Z1+ $H0/2};
+RC #eval {$H0/2.0};
+
+defaultFieldValues
+(
+    volScalarFieldValue alpha.water_glycerol 1
+);
+
+regions
+(
+    sphereToCell
+    {
+        centre ($XC 0.0 $ZC);
+        radius $RC;
+        fieldValues
+        (
+            volScalarFieldValue alpha.water_glycerol 0
+        );
+    }
+    boxToCell
+    {
+        box ($R0 -$Y $Z1) ($X $Y $Z);
+        fieldValues
+        (
+            volScalarFieldValue alpha.water_glycerol 0
+        );
+    }
+
+);
+
+
+// ************************************************************************* //
+

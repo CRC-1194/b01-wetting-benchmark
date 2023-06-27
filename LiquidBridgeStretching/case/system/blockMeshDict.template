@@ -1,0 +1,121 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2112                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+mergeType points;   // Wedge geometry - Merge points instead of topology
+
+H0	@!H0!@;
+V       @!V!@;
+pi      pi();
+R0      #eval { sqrt(($V/($pi*$H0)) + sqr($pi*$H0/8.0)) + ($pi*$H0/8.0) };
+
+X       #eval {$R0*4}; // domain total width
+X1      #eval {$R0*1.5}; // refined domain (liquid bridge side) rest is coarse
+Z       #eval {$H0*40}; // domain total height
+Y       0.01e-3;
+Y1      #eval {($Y-0)/($X-0)*$X1};
+Z1      #eval {$Z-$H0}; // lower end of the liquid bridge
+
+nz      #eval {round($Z/($H0/24))}; //10 cells per height H0
+nx      #eval {round($X1/($Z/$nz))};
+nx2     #eval {round($nx/3.5)};
+ny      1;
+
+
+vertices
+(
+    (0 0 0) //0
+    ($X1 $Y1 0) //1
+    ($X $Y 0) //2
+    ($X -$Y 0) //3
+    ($X1 -$Y1 0) //4
+    (0 0 $Z) //5    
+    ($X1 $Y1 $Z) //6
+    ($X $Y $Z) //7 
+    ($X -$Y $Z) //8  
+    ($X1 -$Y1 $Z) //9
+);
+
+blocks
+(
+    hex (0 1 6 5 0 4 9 5) ($nx $nz $ny) simpleGrading (1 1 1)
+    hex (1 2 7 6 4 3 8 9) ($nx2 $nz $ny) simpleGrading (1 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+    left
+    {
+        type patch;
+        faces
+        (
+            (0 5 5 0)
+        );
+    }
+    right
+    {
+        type patch;
+        faces
+        (
+            (3 8 7 2)
+        );
+    }
+    back
+    {
+        type wedge;
+	faces
+	(
+		(0 5 9 4)
+		(9 8 3 4)
+	);
+    }
+    front
+    {
+        type wedge;
+	faces
+	(
+		(0 1 6 5)
+		(1 2 7 6)
+	);
+    }
+    top
+    {
+        type wall;
+        faces
+        (
+            (5 6 9 5)
+	    (6 7 8 9)
+        );
+    }
+    bottom
+    {
+        type patch;
+        faces
+        (
+            (0 4 1 0)
+	    (1 4 3 2)
+        );
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //

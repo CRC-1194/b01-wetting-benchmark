@@ -1,0 +1,139 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+    class           dictionary;
+    location        "system";
+    object          controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+H0      @!H0!@;
+
+Z       #eval {$H0*40}; // domain total height
+Z1      #eval {$Z-$H0}; // lower end of the liquid bridge
+
+application     interFlow;
+
+startFrom       latestTime;
+
+startTime       0.0;
+
+stopAt          endTime;
+
+endTime         0.35;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.0001;
+
+deltaT          1e-07;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  14;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+graphFormat     raw;
+
+runTimeModifiable yes;
+
+adjustTimeStep  no;
+
+maxCo           0.18;
+
+maxAlphaCo      0.18;
+
+maxDeltaT       0.0001;
+
+maxCapillaryNum 0.7; //mu*V/sigma
+
+libs ("libupdateFluxFunctionObject.so");
+functions
+{
+
+    surfaces
+    {
+        type            surfaces;
+        libs
+        (
+            "libsampling.so"
+        );
+        writeControl   outputTime;
+
+        surfaceFormat  vtk;
+        formatOptions
+        {
+            vtk
+            {
+                legacy true;
+                format ascii;
+            }
+        }
+        fields
+        (
+            p U alpha.water_glycerol
+        );
+
+        interpolationScheme cellPoint;
+
+        surfaces
+        (
+            isoAlpha
+            {
+                type        isoSurface;
+                isoField    alpha.water_glycerol;
+                isoValue    0.5;
+                interpolate true;
+            }
+        );
+    }
+
+    plic
+    {
+        type            surfaces;
+        libs            (geometricVoF sampling);
+        writeControl    writeTime;
+
+        surfaceFormat   vtp;
+        fields          (p U);
+
+        interpolationScheme cell;
+
+        surfaces
+        {
+            freeSurf
+            {
+                type            interface;
+                interpolate     false;
+            }
+        }
+    }
+
+    updateFlux
+    {
+        type updateFlux;
+        libs ("libupdateFluxFunctionObject.so");
+        phaseIndicator alpha.water_glycerol;
+        acceleration (0 0.0 -@!a!@);
+        initialHeight (0.0 0.0 $Z1);
+    }
+
+}
+
+
+// ************************************************************************* //
+

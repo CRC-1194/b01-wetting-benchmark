@@ -1,0 +1,46 @@
+values
+{
+    solver (interFlow);
+
+//SURFACE TENSTION MODEL
+    STM
+    (
+//        RDF 
+//        fitParaboloid
+	heightFunction
+    );
+
+//TRANSPORT PROPERTIES
+    alpha1Mu
+    (
+	4.99e-3 9e-4 2.31e-2 1.4138
+    );    
+    alpha1Rho
+    (
+	1190 997 1180.7 1260.8
+    );
+    sigma
+    (
+	49e-3 71.8e-3 66e-3 63.4e-3
+    );
+
+    //initial bridge gap
+    H0
+    (
+       0.00106
+    );
+
+    V
+    (
+        5e-9 10e-9 50e-9
+    );
+
+
+    // bridge plate acceleration
+    a
+    (
+	0.25 0.5 5 10 150
+    );
+    
+}
+
