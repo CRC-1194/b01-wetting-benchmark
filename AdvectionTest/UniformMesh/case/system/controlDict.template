@@ -117,7 +117,7 @@ functions
     plic
     {
         type            surfaces;
-        libs            (geometricVoF sampling);
+        libs            (geometricVoF postProcess);
         writeControl    writeTime;
 
         surfaceFormat   vtp;
