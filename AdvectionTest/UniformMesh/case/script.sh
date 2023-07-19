@@ -2,7 +2,7 @@
 
 #allocate 1 node for 24 hour on LB2 partition
 #SBATCH --nodes=1 --ntasks=2 --time=23:30:00
-#SBATCH --mem-per-cpu=3750
+#SBATCH --mem-per-cpu=1750
 ###stderror file
 #SBATCH --error=error.err
 #SBATCH -J Adv/Uni 

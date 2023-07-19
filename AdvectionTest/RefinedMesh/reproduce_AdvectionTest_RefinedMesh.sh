@@ -29,10 +29,10 @@ for case in test_*; do cd $case; ./Allclean; cd ..; done
 for case in test_*; do cd $case; ./Allrun; cd ..; done
 
 #local run
-#for case in test_*; do cd $case; interFlow >log.interFlow; cd ..; done
+for case in test_*; do cd $case; interFlow >log.interFlow; cd ..; done
 
 #remote run
-for case in test_*; do cd $case; sbatch script.sh; cd ..; done
+#for case in test_*; do cd $case; sbatch script.sh; cd ..; done
 
 
 

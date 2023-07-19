@@ -23,10 +23,12 @@ boundaryField
     right
     {
         type    zeroGradient;
+        
     }
     bottom
     {
         type    zeroGradient;
+        
     }
 
     top
@@ -39,12 +41,12 @@ boundaryField
         type    zeroGradient;
     }
     
-    front
+    bottomEmptyFaces
     {
     	type	empty;
     }
     
-    back
+    topEmptyFaces
     {
     	type	empty;
     }

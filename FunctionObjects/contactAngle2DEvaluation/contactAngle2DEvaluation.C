@@ -46,7 +46,6 @@ Author
 
 #include <iostream>
 
-
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 namespace Foam {
@@ -118,7 +117,14 @@ namespace Foam {
     bool contactAngle2DEvaluation::read(const dictionary & dict) {
         //notImplemented("contactAngle2DEvaluation::read(const dictionary&)");
         //return execute();
-        calContactAngle();
+   fileName outputDir = "postProcessing";
+            // Createe the directory
+            mkDir(outputDir);
+            // Open the output file in the newly created directory
+           OFstream outputFileMin(outputDir / "contactangleMin.csv");
+           OFstream outputFileMax(outputDir / "contactangleMax.csv");
+
+	    calContactAngle();
         contactAngles_.write();
         return true;
     }
@@ -126,7 +132,6 @@ namespace Foam {
     bool contactAngle2DEvaluation::execute() {
         // Calculate advancing and receding contact angles at time t > 0.
         calContactAngle();
-//        report();
         return true;
     }
 
@@ -214,31 +219,22 @@ namespace Foam {
         return true;
     }
 
-    bool contactAngle2DEvaluation::write() {  
+    bool contactAngle2DEvaluation::write() {
         if (time_.writeTime()) {
             // Create the output path directory
             contactAngles_.write();
             reduce(contactAnglemin_, minOp<scalar>());
             reduce(contactAnglemax_, maxOp<scalar>());
-            fileName outputDir = "postProcessing";
-            // Createe the directory
-            mkDir(outputDir);
-            // File pointer to direct the output to
-            autoPtr < OFstream > outputFilePtrMin;
-            autoPtr < OFstream > outputFilePtrMax;
-            // Open the file in the newly created directory
-            outputFilePtrMin.reset(new OFstream(outputDir/"contactangleMin"+".csv",
-                                IOstreamOption(),
-                                true));
-            outputFilePtrMax.reset(new OFstream(outputDir/"contactangleMax"+".csv",
-                                IOstreamOption(),
-                                true));
+        
+	    // Open the time file for writing
+	    std::ofstream outputFileMin("postProcessing/contactangleMin.csv", std::ios::app);
+    	    std::ofstream outputFileMax("postProcessing/contactangleMax.csv", std::ios::app);
 
             // Write stuff
-            outputFilePtrMin() << time_.value()<< "," << contactAnglemin_<< endl;
-            outputFilePtrMax() << time_.value()<< "," << contactAnglemax_<< endl;
+            outputFileMin << time_.value()<< "," << contactAnglemin_<< nl;
+            outputFileMax << time_.value()<< "," << contactAnglemax_<< nl;
 
-        }   
+        }  
       return true;
     }
 

@@ -1,5 +1,4 @@
 #!/bin/bash
-
 pyFoamRunParameterVariation.py --list-variation case case.parameter > variation_file
 
 Help()
@@ -19,20 +18,20 @@ while getopts ":h" option; do
    esac
 done
 
+
 #source the OpenFOAM-v2112 environment
-fileName="test"
 
 #Parametrize  using pyFoam
-./create-study.py -s $fileName -c case -p case.parameter
+./create-study.py -s test -c case -p case.parameter
 
 #intialization of cases
-for case in $fileName*; do cd $case; ./Allclean; cd ..; done
-for case in $fileName*; do cd $case; ./Allrun; cd ..; done
+for case in test_*; do cd $case; ./Allclean; cd ..; done
+for case in test_*; do cd $case; ./Allrun; cd ..; done
 
 #local run
-#for case in $fileName*; do cd $case; interFlow >log.interFlow; cd ..; done
+for case in test_*; do cd $case; interFlow >log.interFlow; cd ..; done
 
 #remote run
-for case in $fileName*; do cd $case; sbatch script.sh; cd ..; done
+#for case in test_*; do cd $case; sbatch script.sh; cd ..; done
 
 

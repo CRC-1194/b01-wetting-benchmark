@@ -1,6 +1,6 @@
 
 ===============================
-75 variations with 3 parameters
+15 variations with 2 parameters
 ===============================
 
 
@@ -8,78 +8,18 @@
 Listing variations
 ==================
 
-Variation 0 : {'STM': 'heightFunction', 'nZ': 32, 'nX': 128}
-Variation 1 : {'STM': 'heightFunction', 'nZ': 32, 'nX': 256}
-Variation 2 : {'STM': 'heightFunction', 'nZ': 32, 'nX': 512}
-Variation 3 : {'STM': 'heightFunction', 'nZ': 32, 'nX': 1024}
-Variation 4 : {'STM': 'heightFunction', 'nZ': 32, 'nX': 2056}
-Variation 5 : {'STM': 'heightFunction', 'nZ': 64, 'nX': 128}
-Variation 6 : {'STM': 'heightFunction', 'nZ': 64, 'nX': 256}
-Variation 7 : {'STM': 'heightFunction', 'nZ': 64, 'nX': 512}
-Variation 8 : {'STM': 'heightFunction', 'nZ': 64, 'nX': 1024}
-Variation 9 : {'STM': 'heightFunction', 'nZ': 64, 'nX': 2056}
-Variation 10 : {'STM': 'heightFunction', 'nZ': 128, 'nX': 128}
-Variation 11 : {'STM': 'heightFunction', 'nZ': 128, 'nX': 256}
-Variation 12 : {'STM': 'heightFunction', 'nZ': 128, 'nX': 512}
-Variation 13 : {'STM': 'heightFunction', 'nZ': 128, 'nX': 1024}
-Variation 14 : {'STM': 'heightFunction', 'nZ': 128, 'nX': 2056}
-Variation 15 : {'STM': 'heightFunction', 'nZ': 256, 'nX': 128}
-Variation 16 : {'STM': 'heightFunction', 'nZ': 256, 'nX': 256}
-Variation 17 : {'STM': 'heightFunction', 'nZ': 256, 'nX': 512}
-Variation 18 : {'STM': 'heightFunction', 'nZ': 256, 'nX': 1024}
-Variation 19 : {'STM': 'heightFunction', 'nZ': 256, 'nX': 2056}
-Variation 20 : {'STM': 'heightFunction', 'nZ': 512, 'nX': 128}
-Variation 21 : {'STM': 'heightFunction', 'nZ': 512, 'nX': 256}
-Variation 22 : {'STM': 'heightFunction', 'nZ': 512, 'nX': 512}
-Variation 23 : {'STM': 'heightFunction', 'nZ': 512, 'nX': 1024}
-Variation 24 : {'STM': 'heightFunction', 'nZ': 512, 'nX': 2056}
-Variation 25 : {'STM': 'RDF', 'nZ': 32, 'nX': 128}
-Variation 26 : {'STM': 'RDF', 'nZ': 32, 'nX': 256}
-Variation 27 : {'STM': 'RDF', 'nZ': 32, 'nX': 512}
-Variation 28 : {'STM': 'RDF', 'nZ': 32, 'nX': 1024}
-Variation 29 : {'STM': 'RDF', 'nZ': 32, 'nX': 2056}
-Variation 30 : {'STM': 'RDF', 'nZ': 64, 'nX': 128}
-Variation 31 : {'STM': 'RDF', 'nZ': 64, 'nX': 256}
-Variation 32 : {'STM': 'RDF', 'nZ': 64, 'nX': 512}
-Variation 33 : {'STM': 'RDF', 'nZ': 64, 'nX': 1024}
-Variation 34 : {'STM': 'RDF', 'nZ': 64, 'nX': 2056}
-Variation 35 : {'STM': 'RDF', 'nZ': 128, 'nX': 128}
-Variation 36 : {'STM': 'RDF', 'nZ': 128, 'nX': 256}
-Variation 37 : {'STM': 'RDF', 'nZ': 128, 'nX': 512}
-Variation 38 : {'STM': 'RDF', 'nZ': 128, 'nX': 1024}
-Variation 39 : {'STM': 'RDF', 'nZ': 128, 'nX': 2056}
-Variation 40 : {'STM': 'RDF', 'nZ': 256, 'nX': 128}
-Variation 41 : {'STM': 'RDF', 'nZ': 256, 'nX': 256}
-Variation 42 : {'STM': 'RDF', 'nZ': 256, 'nX': 512}
-Variation 43 : {'STM': 'RDF', 'nZ': 256, 'nX': 1024}
-Variation 44 : {'STM': 'RDF', 'nZ': 256, 'nX': 2056}
-Variation 45 : {'STM': 'RDF', 'nZ': 512, 'nX': 128}
-Variation 46 : {'STM': 'RDF', 'nZ': 512, 'nX': 256}
-Variation 47 : {'STM': 'RDF', 'nZ': 512, 'nX': 512}
-Variation 48 : {'STM': 'RDF', 'nZ': 512, 'nX': 1024}
-Variation 49 : {'STM': 'RDF', 'nZ': 512, 'nX': 2056}
-Variation 50 : {'STM': 'fitParaboloid', 'nZ': 32, 'nX': 128}
-Variation 51 : {'STM': 'fitParaboloid', 'nZ': 32, 'nX': 256}
-Variation 52 : {'STM': 'fitParaboloid', 'nZ': 32, 'nX': 512}
-Variation 53 : {'STM': 'fitParaboloid', 'nZ': 32, 'nX': 1024}
-Variation 54 : {'STM': 'fitParaboloid', 'nZ': 32, 'nX': 2056}
-Variation 55 : {'STM': 'fitParaboloid', 'nZ': 64, 'nX': 128}
-Variation 56 : {'STM': 'fitParaboloid', 'nZ': 64, 'nX': 256}
-Variation 57 : {'STM': 'fitParaboloid', 'nZ': 64, 'nX': 512}
-Variation 58 : {'STM': 'fitParaboloid', 'nZ': 64, 'nX': 1024}
-Variation 59 : {'STM': 'fitParaboloid', 'nZ': 64, 'nX': 2056}
-Variation 60 : {'STM': 'fitParaboloid', 'nZ': 128, 'nX': 128}
-Variation 61 : {'STM': 'fitParaboloid', 'nZ': 128, 'nX': 256}
-Variation 62 : {'STM': 'fitParaboloid', 'nZ': 128, 'nX': 512}
-Variation 63 : {'STM': 'fitParaboloid', 'nZ': 128, 'nX': 1024}
-Variation 64 : {'STM': 'fitParaboloid', 'nZ': 128, 'nX': 2056}
-Variation 65 : {'STM': 'fitParaboloid', 'nZ': 256, 'nX': 128}
-Variation 66 : {'STM': 'fitParaboloid', 'nZ': 256, 'nX': 256}
-Variation 67 : {'STM': 'fitParaboloid', 'nZ': 256, 'nX': 512}
-Variation 68 : {'STM': 'fitParaboloid', 'nZ': 256, 'nX': 1024}
-Variation 69 : {'STM': 'fitParaboloid', 'nZ': 256, 'nX': 2056}
-Variation 70 : {'STM': 'fitParaboloid', 'nZ': 512, 'nX': 128}
-Variation 71 : {'STM': 'fitParaboloid', 'nZ': 512, 'nX': 256}
-Variation 72 : {'STM': 'fitParaboloid', 'nZ': 512, 'nX': 512}
-Variation 73 : {'STM': 'fitParaboloid', 'nZ': 512, 'nX': 1024}
-Variation 74 : {'STM': 'fitParaboloid', 'nZ': 512, 'nX': 2056}
+Variation 0 : {'STM': 'heightFunction', 'meshSize': 0.008}
+Variation 1 : {'STM': 'heightFunction', 'meshSize': 0.004}
+Variation 2 : {'STM': 'heightFunction', 'meshSize': 0.002}
+Variation 3 : {'STM': 'heightFunction', 'meshSize': 0.001}
+Variation 4 : {'STM': 'heightFunction', 'meshSize': 0.0005}
+Variation 5 : {'STM': 'RDF', 'meshSize': 0.008}
+Variation 6 : {'STM': 'RDF', 'meshSize': 0.004}
+Variation 7 : {'STM': 'RDF', 'meshSize': 0.002}
+Variation 8 : {'STM': 'RDF', 'meshSize': 0.001}
+Variation 9 : {'STM': 'RDF', 'meshSize': 0.0005}
+Variation 10 : {'STM': 'fitParaboloid', 'meshSize': 0.008}
+Variation 11 : {'STM': 'fitParaboloid', 'meshSize': 0.004}
+Variation 12 : {'STM': 'fitParaboloid', 'meshSize': 0.002}
+Variation 13 : {'STM': 'fitParaboloid', 'meshSize': 0.001}
+Variation 14 : {'STM': 'fitParaboloid', 'meshSize': 0.0005}

@@ -22,32 +22,34 @@ boundaryField
 {
     right
     {
-        type            fixedValue;
-        value           uniform 0;
+        //type    zeroGradient;//For walls both are equivalent
+        type    fixedFluxPressure;
+        value   uniform 0; 
     }
     bottom
     {
-        type            zeroGradient;
+        type    fixedFluxPressure;
+        value   uniform 0; 
     }
 
     top
     {
-        type    fixedValue;
+        type    fixedFluxPressure;
         value   uniform 0; 
     }
 
     left
     {
-        type    fixedValue;
+        type    fixedFluxPressure;
         value   uniform 0; 
     }
     
-    front
+    bottomEmptyFaces
     {
     	type	empty;
     }
     
-    back
+    topEmptyFaces
     {
     	type	empty;
     }

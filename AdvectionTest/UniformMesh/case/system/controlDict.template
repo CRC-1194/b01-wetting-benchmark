@@ -28,7 +28,7 @@ writeControl    adjustableRunTime;
 
 writeInterval   @!writeInterval!@;
 
-deltaT		#calc "@!courantNo!@*@!X!@/@!nX!@/@!U!@";
+deltaT		#calc "@!courantNo!@*@!meshSize!@/@!U!@";
 
 purgeWrite      0;
 
@@ -60,8 +60,8 @@ functions
 {
     setVelocity
     {
-        type            mysetFlow;
-        libs            ("libmysetFlowFunctionObjects.so");
+        type            vortex2d;
+        libs            ("libvortex2dFunctionObjects.so");
         writeControl    writeTime;
         mode            myvortex2D;
         scale           cosine;
@@ -134,19 +134,14 @@ functions
             }
         }
     }
-     contactAngle2DEvaluation
+
+    contactAngle2DEvaluation
     {
-     	type contactAngle2DEvaluation;
-        libs ("libcontactAngle2DEvaluationFunctionObject.so");
-        phaseIndicator alpha.water_glycerol;
-        patchName bottom;
+	type contactAngle2DEvaluation;
+	libs ("libcontactAngle2DEvaluationFunctionObject.so");
+	phaseIndicator alpha.water_glycerol;
+	patchName bottom;
     }
-/*    contactAngle3D
-    {
-     	type contactAngle3D;
-        libs ("libcontactAngle3DFunctionObject.so");
-        phaseIndicator alpha.water_glycerol;
-    }*/
 }
 
 

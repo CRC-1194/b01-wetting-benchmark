@@ -1,5 +1,0 @@
-$(OBJECTS_DIR)/contactAngleEvaluation.C.dep: \
-contactAngleEvaluation.C \
-$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/addToRunTimeSelectionTable.H \
-
-#END
