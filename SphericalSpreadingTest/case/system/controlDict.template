@@ -58,7 +58,6 @@ maxCapillaryNum 0.0002; //0.5;
 libs
 (
     "libtwoPhaseProperties.so"
-     "navierSlipBc.so"
 );
 
 OptimisationSwitches
@@ -120,7 +119,7 @@ functions
     plics
     {
        type surfaces; // sampled type
-       libs (geometricVoF sampling);
+       libs (geometricVoF postProcess);
         writeControl writeTime;
         surfaceFormat vtp;
         fields (p U); // sampled fields
@@ -144,10 +143,10 @@ functions
 	patchName bottom;
     }
     
-    contactAngleEvaluationTest
+    contactAngleEvaluation
     {
-     	type contactAngleEvaluationTest;
-        libs ("libcontactAngleEvaluationTestFunctionObject.so");
+     	type contactAngleEvaluation;
+        libs ("libcontactAngleEvaluationFunctionObject.so");
         phaseIndicator alpha.water_glycerol;
         centre (@!dropCx!@ @!dropCy!@ @!dropCz!@);
     }
