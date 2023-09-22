@@ -1,0 +1,3 @@
+contactAngleEvaluation.C
+
+LIB = $(FOAM_USER_LIBBIN)/libcontactAngleEvaluationFunctionObject

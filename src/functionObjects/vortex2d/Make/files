@@ -1,0 +1,3 @@
+vortex2d.C
+
+LIB = $(FOAM_USER_LIBBIN)/libvortex2dFunctionObjects
