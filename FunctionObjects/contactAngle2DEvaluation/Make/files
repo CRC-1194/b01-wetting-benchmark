@@ -1,3 +1,0 @@
-contactAngle2DEvaluation.C
-
-LIB = $(FOAM_USER_LIBBIN)/libcontactAngle2DEvaluationFunctionObject

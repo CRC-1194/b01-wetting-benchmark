@@ -1,3 +1,0 @@
-updateFlux.C
-
-LIB = $(FOAM_USER_LIBBIN)/libupdateFluxFunctionObject

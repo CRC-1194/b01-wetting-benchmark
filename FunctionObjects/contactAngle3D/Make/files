@@ -1,3 +1,0 @@
-contactAngle3D.C
-
-LIB = $(FOAM_USER_LIBBIN)/libcontactAngle3DFunctionObject
