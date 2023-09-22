@@ -25,8 +25,8 @@ solvers
         nAlphaBounds    3;
         snapTol         1e-12;
         clip            true;
-        reconstructionScheme plicRDF;
-        nAlphaSubCycles 2;
+        reconstructionScheme wettingPlicRdf;
+        nAlphaSubCycles 1;
         cAlpha          1; // Note: cAlpha is not used by isoAdvector but must
                            // be specified because interfacePropertes object
                            // reads it during construction.

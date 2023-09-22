@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2012                                 |
-|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|  \\    /   O peration     | Version:  1.6                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -10,18 +10,30 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      decomposeParDict;
+    object      vofInitDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-numberOfSubdomains 2;
+fieldName       alpha.water_glycerol;
+algorithm       SMCA;
+writeGeometry   off;
+invert          off;
+writeAllFields  on;
+checkVolume     on;
+refinementLevel 4;
+relError        -1.0;
 
-method          simple;
-
-coeffs
+distCalc
 {
-    n           (2 1 1);
+    surfaceType     levelSet;
+    surface         sphere;
+    center          (0.0025 0.0025 #calc"-1.0*0.001*cos(45*degToRad())");
+    radius          0.001;
+    orientation     inward;
+    narrowBandWidth 4.0;
+    bulkValue       1.0;
 }
+
 
 
 // ************************************************************************* //

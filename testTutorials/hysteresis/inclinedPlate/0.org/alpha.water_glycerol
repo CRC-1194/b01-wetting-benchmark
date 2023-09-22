@@ -49,7 +49,7 @@ boundaryField
     {
     	type 		constantAlphaContactAngle;
 	value 		uniform 0;
-	theta0 	@!theta0!@;
+	theta0 	        45;
 	limit 		gradient;
     }
 

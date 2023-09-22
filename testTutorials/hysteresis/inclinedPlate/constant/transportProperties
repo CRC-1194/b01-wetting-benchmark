@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  1.6                                   |
-|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -10,30 +10,35 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      vofInitDict;
+    location    "constant";
+    object      transportProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-fieldName       alpha.water_glycerol;
-algorithm       SMCA;
-writeGeometry   off;
-invert          off;
-writeAllFields  on;
-checkVolume     on;
-refinementLevel 4;
-relError        -1.0;
+phases (water_glycerol air);
 
-distCalc
+water_glycerol
 {
-    surfaceType     levelSet;
-    surface         sphere;
-    center          (0.0025 0.0025 0.0);
-    radius          0.001;
-    orientation     inward;
-    narrowBandWidth 4.0;
-    bulkValue       1.0;
+    transportModel  Newtonian;
+    nu              2.507e-05;
+    rho             1194.9;
+}
+
+air
+{
+    transportModel  Newtonian;
+    nu              1.516e-05;
+    rho             1.204;
 }
 
 
+sigma               0.0635;
+surfaceForces
+{
+    sigma 0.0635;
+    surfaceTensionForceModel fitParaboloid; //fitParaboloid RDF
+    accelerationForceModel gravity;
+    deltaFunctionModel alphaCSF;
+}
 
 // ************************************************************************* //
