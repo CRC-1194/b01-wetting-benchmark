@@ -47,10 +47,13 @@ boundaryField
 
     bottom
     {
-    	type 		constantAlphaContactAngle;
+    	type 		fdtHysteresis;
 	value 		uniform 0;
-	theta0 	        45;
-	limit 		gradient;
+	theta0 	        90;
+        thetaA          110;
+        thetaR          70;
+        dxdy            1;
+        limit           none;
     }
 
 }
