@@ -1,7 +1,7 @@
 ``
-reproduce_DropletSpreadingTest_ZeroG.sh [fluid]
+./reproduce_DropletSpreadingTest_ZeroG.sh 
 ``
 
-script overwrites the .parameter file with the physical parameters of the selected fluid and then initialize the case
+script overwrites the .parameter file with the physical parameters and then initialize the case
 
 
