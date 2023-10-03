@@ -1,0 +1,26 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\	  /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format	ascii;
+    class	dictionary;
+    location    "system";
+    object	setAlphaFieldDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+field       "alpha.water_glycerol";
+type        cylinder;
+radius      @!dropRadius!@;
+direction   (0 1 0);
+origin      (0.0025 0.0025 #calc"-1.0*@!dropRadius!@*cos(@!theta0!@*degToRad())");
+
+// ************************************************************************* //
+
+

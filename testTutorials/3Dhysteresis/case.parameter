@@ -23,7 +23,15 @@ values
     (
     	30 45 90
     );
-    
+    thetaA
+    (
+    	91
+    );
+     thetaR
+    (
+    	90
+    );
+     
     //Radius
     dropRadius
     (

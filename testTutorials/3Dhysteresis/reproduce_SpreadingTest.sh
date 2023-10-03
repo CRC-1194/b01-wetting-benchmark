@@ -29,8 +29,8 @@ done
 
 #intialization of cases
 for case in $fileName*; do cd $case; ./Allclean; cd ..; done
-#for case in $fileName*; do cd $case; ./Allrun; cd ..; done
-
+for case in $fileName*; do cd $case; rm -rf 0*/*.template; cd ..; done
+for case in $fileName*; do cd $case; rm -rf system/*.template; cd ..; done
 #local run //Single Processor
 #for case in $fileName*; do cd $case; interFlow >log.interFlow; cd ..; done
 
