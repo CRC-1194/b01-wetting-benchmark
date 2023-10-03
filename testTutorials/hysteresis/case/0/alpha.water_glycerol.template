@@ -9,14 +9,50 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       uniformDimensionedVectorField;
-    location    "constant";
-    object      g;
+    class       volScalarField;
+    object      alpha.water;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 1 -2 0 0 0 0];
-value           (6.936717523440031 0.0 -6.9367175234400325);
+dimensions      [0 0 0 0 0 0 0];
 
+internalField   uniform 0;
+
+boundaryField
+{
+
+
+    left
+    {
+         type            zeroGradient;
+    }
+
+    right
+    {
+         type            zeroGradient;
+    }
+    front
+    {
+         type            zeroGradient;
+    }
+
+    back
+    {
+        type            zeroGradient;
+    }
+    top
+    {
+        type            zeroGradient;
+    }
+
+    bottom
+    {
+    	type 		constantAlphaContactAngle;
+	value 		uniform 0;
+	theta0 	@!theta0!@;
+	limit 		gradient;
+    }
+
+}
 
 // ************************************************************************* //

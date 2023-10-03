@@ -9,53 +9,50 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
-    object      alpha.water;
+    class       volVectorField;
+    object      U;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 0 0 0 0 0 0];
+dimensions      [0 1 -1 0 0 0 0];
 
-internalField   uniform 0;
+internalField   uniform (0 0 0);
 
 boundaryField
 {
-
-
     left
     {
-         type            zeroGradient;
+        type    zeroGradient;
     }
 
     right
     {
-         type            zeroGradient;
+        type    zeroGradient;
     }
+
     front
     {
-         type            zeroGradient;
+        type    zeroGradient;
     }
 
     back
     {
-        type            zeroGradient;
+        type    zeroGradient;
     }
+
     top
     {
-        type            zeroGradient;
+        type    zeroGradient;
     }
 
     bottom
     {
-    	type 		fdtHysteresis;
-	value 		uniform 0;
-	theta0 	        90;
-        thetaA          110;
-        thetaR          70;
-        dxdy            1;
-        limit           none;
+        type            noSlip;
     }
+
 
 }
 
 // ************************************************************************* //
+
+

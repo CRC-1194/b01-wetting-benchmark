@@ -9,54 +9,15 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volVectorField;
-    object      U;
+    class       uniformDimensionedVectorField;
+    location    "constant";
+    object      g;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 1 -1 0 0 0 0];
+dimensions      [0 1 -2 0 0 0 0];
+value		(9.81 0 0);
+//value           (6.936717523440031 0.0 -6.9367175234400325);
 
-internalField   uniform (0 0 0);
-
-boundaryField
-{
-    left
-    {
-        type    zeroGradient;
-    }
-
-    right
-    {
-        type    zeroGradient;
-    }
-
-    front
-    {
-        type    zeroGradient;
-    }
-
-    back
-    {
-        type    zeroGradient;
-    }
-
-    top
-    {
-        type    zeroGradient;
-    }
-
-    bottom
-    {
-        type            noSlip;
-	/*type            navierSlip;
-        value           uniform (0 0 0);
-        slipLength      uniform @!slipLength!@;
-        wallVelocity    uniform (0 0 0);*/
-    }
-
-
-}
 
 // ************************************************************************* //
-
-
