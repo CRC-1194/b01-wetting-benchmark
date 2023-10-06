@@ -27,8 +27,8 @@ distCalc
 {
     surfaceType     levelSet;
     surface         sphere;
-    center          (0.0025 0.0025 #calc"-1.0*0.001*cos(90*degToRad())");
-    radius          0.001;
+    center          (0.0025 0.0025 #calc"-1.0*0.002*cos(60*degToRad())");
+    radius          0.002;
     orientation     inward;
     narrowBandWidth 4.0;
     bulkValue       1.0;
