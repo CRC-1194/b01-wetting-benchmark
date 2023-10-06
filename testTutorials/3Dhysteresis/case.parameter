@@ -1,0 +1,43 @@
+values
+{
+    solver (interFlow);
+   
+    //cells in X-Y-Z directions
+    nx 
+    (
+        50
+    );
+   
+    ny 
+    (
+        50
+    );
+ 
+    nz
+    (
+	25
+    );
+     
+    //CONTACT ANGLE (SCA)
+    theta0
+    (
+    	30 45 90
+    );
+    thetaA
+    (
+    	91
+    );
+     thetaR
+    (
+    	90
+    );
+     
+    //Radius
+    dropRadius
+    (
+	0.001
+    );
+
+}
+
+
