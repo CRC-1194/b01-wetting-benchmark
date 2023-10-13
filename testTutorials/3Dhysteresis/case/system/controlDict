@@ -23,13 +23,13 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         0.001;
+endTime         0.1;
 
-deltaT          1e-6; //C=UdelT / delX
+deltaT          0.5e-4; //C=UdelT / delX
 
 writeControl    adjustableRunTime;
 
-writeInterval   1e-04;
+writeInterval   1e-02;
 
 purgeWrite      0;
 

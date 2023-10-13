@@ -52,8 +52,8 @@ boundaryField
 
     bottom
     {
-         //type            zeroGradient;
-         type            fixedFluxPressure;
+	type            fixedFluxPressure;
+        value           uniform 0;
     }
 
 }

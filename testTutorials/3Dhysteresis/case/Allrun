@@ -13,6 +13,6 @@ runApplication surfaceInitVolumeFraction
 
 # Postprocessing
 
-runApplication decomposePar
+runApplication decomposePar -force
 #------------------------------------------------------------------------------
 
