@@ -1,0 +1,92 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2012                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+FoamFile
+{
+    version         2;
+    format          ascii;
+    class           dictionary;
+    object          dynamicMeshDict;
+}
+
+dynamicFvMesh   adaptiveFvMesh;
+
+refiner         polyRefiner;
+
+errorEstimator  coded;
+
+name            gradientRange;
+
+code            #{
+    Info<< "---->! custom error estimator !<----" << endl;
+    error_ = 0.0;
+    /*
+        End result must be (error_ is a dimless volScalarField):
+        - error_ == 1  if the cell needs to be refined
+        - error_ == 0  if the cell is to be left alone
+        - error_ == -1 if the vertices of the cell are to be unrefined
+    */
+
+    const auto& alpha = mesh_.lookupObject<volScalarField>("alpha.water");
+    error_ == mag(fvc::grad(alpha)) * dimensionedScalar("one",dimLength,1.0);
+
+    /*
+        Here is the deal:
+        - cells featuring 50% and up of the gradient range are refined
+          40%-50% are left alone, and less than 40% are unrefined
+        - Not well tested, so play around with the values.
+        - also, maybe fetching grad(alpha) from cache is faster??
+    */
+
+    scalar maxGradT = gMax(error_);
+    scalar minGradT = gMin(error_);
+
+    lowerRefine_ = minGradT + 0.5*(maxGradT-minGradT);
+    upperRefine_ =  GREAT;
+    lowerUnrefine_ = minGradT + 0.4*(maxGradT-minGradT);
+    upperUnrefine_ =  GREAT;
+    // This converts error_ to the right values (-1, 0, 1) based on the
+    // settings lowerRefine_ ... etc
+    if (scale) normalize(error_);
+    // error_.correctBoundaryConditions() is called after this code in case you
+    // need to manipulate boundary values
+    Info<< "---->! end    error estimator !<----" << endl;
+#};
+
+balance         yes;
+
+allowableBalance 0.1;
+
+refineInterval  100;
+
+unrefineInterval 300;
+
+maxRefinement   2;
+
+nBufferLayers   3;
+
+nRefinementBufferLayers 3;
+
+nUnrefinementBufferLayers 6;
+
+lowerRefineLevel 310;
+
+upperRefineLevel 1110;
+
+unrefineLevel   300;
+
+upperUnrefineLevel 1410;
+
+dumpLevel       no;
+
+refineProbes    no;
+
+correctFluxes   ( ( phi_0_0 none ) ( phi_0 none ) ( phi none ) );
+
+
+// ************************************************************************* //
