@@ -1,0 +1,4 @@
+kistler/kistler.C
+coxVoinov/coxVoinov.C
+
+LIB = $(FOAM_USER_LIBBIN)/libdcaModels
