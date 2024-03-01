@@ -9,38 +9,54 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "constant";
-    object      transportProperties;
+    class       volVectorField;
+    object      U;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-phases (water_glycerol air);
+dimensions      [0 1 -1 0 0 0 0];
 
-water_glycerol
+internalField   uniform (0 0 0);
+
+boundaryField
 {
-    transportModel  Newtonian;
-    nu              @!alpha1Nu!@;
-    rho             @!alpha1Rho!@;
+    left
+    {
+	type    zeroGradient;
+    }
+
+    right
+    {
+	type    zeroGradient;
+    }
+
+    front
+    {
+	type    zeroGradient;
+    }
+
+    back
+    {
+	type    zeroGradient;
+    }
+
+    top
+    {
+	type    zeroGradient;
+    }
+
+    bottom
+    {
+        type            noSlip;
+	/*type            navierSlip;
+        value           uniform (0 0 0);
+        slipLength      uniform 0.0001;
+        wallVelocity    uniform (0 0 0);*/
+    }
+
+
 }
-
-air
-{
-    transportModel  Newtonian;
-    nu              @!alpha2Nu!@;
-    rho             @!alpha2Rho!@;
-}
-
-
-sigma               @!sigma!@;
-surfaceForces
-{
-    sigma @!sigma!@;
-    surfaceTensionForceModel @!STM!@; //fitParaboloid RDF
-    accelerationForceModel gravity;
-    deltaFunctionModel alphaCSF;
-}
-
-
 
 // ************************************************************************* //
+
+

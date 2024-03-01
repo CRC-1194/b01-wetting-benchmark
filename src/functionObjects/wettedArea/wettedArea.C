@@ -93,16 +93,14 @@ namespace Foam {
                 // Get the area normal vectors of the patch
                 const vectorField& patchSf = patch.Sf();
                 // Calculate the wetted area by summing up the product of the area normal vectors and the alpha values
-                forAll(patchSf, cellI) {
-                    if (alphaPatchField[cellI] !=0) wettedArea_ += mag(patchSf[cellI]) * alphaPatchField[cellI];
+                forAll(patchSf, faceI) {
+                    if (alphaPatchField[faceI] !=0) wettedArea_ += mag(patchSf[faceI]) * alphaPatchField[faceI];
                 }
             }
 	}
 	// Synchronize the sum across processors
         reduce(wettedArea_, sumOp<scalar>());
     }
-
-
 
     //- Report at the console output / log file
     void wettedArea::report() {}
@@ -122,7 +120,6 @@ namespace Foam {
     if (Pstream::master()) {
         // Check if the current time step should be written to file
         if (time_.writeTime()) {	
-
             // Write the current time and the wetted area to the file
             outputFile << time_.value() << "," << wettedArea_ * 1000000 << nl;
 	}

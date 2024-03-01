@@ -10,37 +10,51 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "constant";
-    object      transportProperties;
+    location    "system";
+    object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-phases (water_glycerol air);
-
-water_glycerol
+ddtSchemes
 {
-    transportModel  Newtonian;
-    nu              @!alpha1Nu!@;
-    rho             @!alpha1Rho!@;
+    default          Euler;
 }
 
-air
+gradSchemes
 {
-    transportModel  Newtonian;
-    nu              @!alpha2Nu!@;
-    rho             @!alpha2Rho!@;
+    default          pointCellsLeastSquares;
 }
 
-
-sigma               @!sigma!@;
-surfaceForces
+divSchemes
 {
-    sigma @!sigma!@;
-    surfaceTensionForceModel @!STM!@; //fitParaboloid RDF
-    accelerationForceModel gravity;
-    deltaFunctionModel alphaCSF;
+    div(rhoPhi,U)    Gauss limitedLinearV 1;
+    div(phi,alpha)   Gauss vanLeer;
+    div(phirb,alpha) Gauss interfaceCompression;
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
 }
 
+laplacianSchemes
+{
+    default          Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default          linear;
+}
+
+snGradSchemes
+{
+    default          corrected;
+}
+
+fluxRequired
+{
+    default          no;
+    p_rgh;
+    pcorr;
+    alpha.water_glycerol;
+}
 
 
 // ************************************************************************* //

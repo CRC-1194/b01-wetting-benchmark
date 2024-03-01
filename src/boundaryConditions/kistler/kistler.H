@@ -50,6 +50,8 @@ SourceFiles
 #define kistler_H
 
 #include "alphaContactAngleTwoPhaseFvPatchScalarField.H"
+#include "volFields.H"
+#include "fvMesh.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -57,7 +59,7 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-               Class dynamicAlphaContactAngleFvPatch Declaration
+               Class kistler Declaration
 \*---------------------------------------------------------------------------*/
 
 class kistler
@@ -68,6 +70,38 @@ class kistler
 
         //- Equilibrium contact angle
         scalar theta0_;
+
+        //- Visualization 
+        mutable volScalarField contactLineAngle_;
+
+    // Private member functions
+       
+        //- Determine whether a face contains a contact line
+        bool hasContactLine
+        (
+            label faceI
+        ) const;
+
+        // Newton's method for root finding
+        double newton_method
+        (
+            const std::function<double(double)>& func, 
+            const std::function<double(double)>& deriv, 
+            scalar initial_guess
+        ) const;
+
+        //Calculate Inverse Hoffmann function
+        double hoffman_function_inv
+        (
+            scalar theta0_  
+        ) const;
+
+        // Kistler model
+        double kistler_model
+        (
+            scalar theta0_, 
+            scalar Ca
+        )  const; 
 
 
 public:
@@ -148,26 +182,6 @@ public:
             const fvsPatchVectorField& nHat
         ) const;
 
-        // Newton's method for root finding
-        double newton_method
-        (
-            const std::function<double(double)>& func, 
-            const std::function<double(double)>& deriv, 
-            scalar initial_guess
-        ) const;
-
-        //Calculate Inverse Hoffmann function
-        double hoffman_function_inv
-        (
-            scalar theta0_  
-        ) const;
-
-        // Kistler model
-        double kistler_model
-        (
-            scalar theta0_, 
-            scalar Ca
-        )  const; 
 
         //- Write
         virtual void write(Ostream&) const;

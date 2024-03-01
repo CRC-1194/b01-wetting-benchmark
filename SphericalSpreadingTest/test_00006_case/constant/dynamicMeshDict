@@ -11,36 +11,11 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "constant";
-    object      transportProperties;
+    object      dynamicMeshDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-phases (water_glycerol air);
-
-water_glycerol
-{
-    transportModel  Newtonian;
-    nu              @!alpha1Nu!@;
-    rho             @!alpha1Rho!@;
-}
-
-air
-{
-    transportModel  Newtonian;
-    nu              @!alpha2Nu!@;
-    rho             @!alpha2Rho!@;
-}
-
-
-sigma               @!sigma!@;
-surfaceForces
-{
-    sigma @!sigma!@;
-    surfaceTensionForceModel @!STM!@; //fitParaboloid RDF
-    accelerationForceModel gravity;
-    deltaFunctionModel alphaCSF;
-}
-
+dynamicFvMesh   staticFvMesh;
 
 
 // ************************************************************************* //

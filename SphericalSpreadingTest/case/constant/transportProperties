@@ -20,23 +20,23 @@ phases (water_glycerol air);
 water_glycerol
 {
     transportModel  Newtonian;
-    nu              @!alpha1Nu!@;
-    rho             @!alpha1Rho!@;
+    nu              2.507e-05;
+    rho             1194.9;
 }
 
 air
 {
     transportModel  Newtonian;
-    nu              @!alpha2Nu!@;
-    rho             @!alpha2Rho!@;
+    nu              1.516e-05;
+    rho             1.204;
 }
 
 
-sigma               @!sigma!@;
+sigma               0.0635;
 surfaceForces
 {
-    sigma @!sigma!@;
-    surfaceTensionForceModel @!STM!@; //fitParaboloid RDF
+    sigma 0.0635;
+    surfaceTensionForceModel fitParaboloid; //fitParaboloid RDF
     accelerationForceModel gravity;
     deltaFunctionModel alphaCSF;
 }

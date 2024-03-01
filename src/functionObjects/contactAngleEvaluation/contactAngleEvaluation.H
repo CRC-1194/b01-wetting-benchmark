@@ -82,10 +82,10 @@ namespace Foam {
             //- Reference to the phase indicator.
             const volScalarField & alpha1_;
 
+            //Reference to PLIC normal
             const volVectorField & plicNormals_;
-
+            //Reference to PLIC centre
             const volVectorField & plicCentres_;
-
 
             // stores the contact angle field
             volScalarField contactAngles_;
@@ -105,14 +105,17 @@ namespace Foam {
             //Maximum contact radius
             scalar rfMax_;
           
-            
-            DynamicList <scalar> contactAngle;
+	               
+            //DynamicList <scalar> contactAngle;
             
             //tolerance for cell to be the interface cell
             scalar alphaTol_ = 1e-8;
             
             // wisp tolerance to mark if a cellis a wisp or not
             scalar wispTol_ = 1e-03;
+
+	        //- Visualization 
+            //mutable volScalarField contactLineAngle_;
 
             public:
 
@@ -164,6 +167,15 @@ namespace Foam {
 
             //- Calculate the rf_ //Distance from central axis of the drop to the contact line cell
             void calRf(label bCell, const volVectorField& C, int &rcount);
+
+            //- Determine whether a face contains a contact line
+            bool hasContactLine
+            (
+                label faceI,
+                const fvPatch& patch
+            ) const;
+
+           // void isAWisp (scalar threshold);
 
             void report();
             //- Execute at the final time-loop, currently does nothing

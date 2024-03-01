@@ -23,13 +23,13 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         @!endTime!@;
+endTime         0.1;
 
 deltaT          2e-7; //C=UdelT / delX
 
 writeControl    adjustableRunTime;
 
-writeInterval   @!writeInterval!@;
+writeInterval   0.002;
 
 purgeWrite      0;
 
@@ -149,7 +149,7 @@ functions
      	type contactAngleEvaluation;
         libs ("libcontactAngleEvaluationFunctionObject.so");
         phaseIndicator alpha.water_glycerol;
-        centre (@!dropCx!@ @!dropCy!@ @!dropCz!@);
+        centre (0.0025 0.0025 0.002672);
     }
 
 

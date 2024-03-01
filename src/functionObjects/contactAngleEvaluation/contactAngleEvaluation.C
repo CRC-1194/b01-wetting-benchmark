@@ -45,12 +45,22 @@ Author
 #include "addToRunTimeSelectionTable.H"
 
 #include <iostream>
-
+#include "fvc.H"
 #include "vectorList.H"
 
 #include <cmath>
 
 #include "alphaContactAngleTwoPhaseFvPatchScalarField.H"
+#include "fvPatchFieldMapper.H"
+
+#include "volMesh.H"
+#include "volFields.H"
+
+#include "mathematicalConstants.H"
+
+#include <functional>
+
+#include "interpolationCellPoint.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
@@ -106,7 +116,7 @@ namespace Foam {
                 dimless,
                 0.0
             )
-	),
+	    ),
         rf_
         (
             IOobject
@@ -182,7 +192,7 @@ namespace Foam {
         // provides the distance between the central axis and the contact line cell centre
         label cellID = bCell;
         point origin = origin_;
-        point contactLinePoint = C[cellID ];
+        point contactLinePoint = C[cellID];
         point positionOnCentralAxis = {origin[0], origin[1], contactLinePoint[2]};
        
         if (mag((contactLinePoint - positionOnCentralAxis)) != 0){
@@ -194,87 +204,68 @@ namespace Foam {
     //Calculates the contact angle in the interface cells, discarding the wisps
     void contactAngleEvaluation::calContactAngle() {
         //Mesh connectivity
-        const pointField& points = mesh_.points();   // Node coordinates
-        const faceList& faces = mesh_.faces();                   // Face to node
-        const polyBoundaryMesh& boundaryMesh = mesh_.boundaryMesh(); //boundary mesh informataion
         const volVectorField& C = mesh_.C();         // Cell center coordinates
         const auto& faceOwner = mesh_.faceOwner();
         contactAngles_*= scalar(0);
         rf_*= scalar(0);
-	const volScalarField::Boundary & abf = alpha1_.boundaryField();
+	    const volScalarField::Boundary & abf = alpha1_.boundaryField();
+        const fvBoundaryMesh& boundary = mesh_.boundary();
 
 
-        forAll(mesh_.boundary(), patch)
+        forAll(boundary, patch)
         {
-            const word& patchName = mesh_.boundary()[patch].name();            // Boundary patch name
- 
-	    if (isA < alphaContactAngleTwoPhaseFvPatchScalarField > (abf[patch])) 
+	        if (isA < alphaContactAngleTwoPhaseFvPatchScalarField > (abf[patch])) 
             {
-                label patchID = mesh_.boundaryMesh().findPatchID(patchName);
-                const vectorField plicNormalPatchInternalField = plicNormals_.boundaryField()[patchID].patchInternalField();
-                const vectorField plicCentrePatchInternalField = plicCentres_.boundaryField()[patchID].patchInternalField();
-                int count=0;
+                const word& patchName = boundary[patch].name();            // Boundary patch name
+                const label patchIndex = boundary[patch].index();
+
+                //patch face normal vectors
+                const vectorField nf(boundary[patch].nf());
+                
+                //label patchID = mesh_.boundaryMesh().findPatchID(patchName);
+                // Get patch internal fields of normals and centers
+                const vectorField plicNormalPatchInternalField = plicNormals_.boundaryField()[patchIndex].patchInternalField();
+                const vectorField plicCentrePatchInternalField = plicCentres_.boundaryField()[patchIndex].patchInternalField();
+                
+                // surfaceVectorField to compute theta
+                surfaceVectorField plicNormalsf(fvc::interpolate(plicNormals_));
+                forAll(plicNormalsf.boundaryFieldRef()[patch],i)
+                {
+                    const label celli = boundary[patch].faceCells()[i];
+                    vector n = plicNormals_[celli];
+                    if(mag(n) != 0)
+                    {
+                        n /= mag(n);
+                        plicNormalsf.boundaryFieldRef()[patch][i] = n;
+                    }
+                }
+
+                fvsPatchVectorField& plicNormalPatchField = plicNormalsf.boundaryFieldRef()[patch];
+                
+                // Compute the contact angles at the wall.
+                tmp<scalarField> thetafTmp = Foam::radToDeg(Foam::acos(plicNormalPatchField & nf));
+                scalarField& thetaf = thetafTmp.ref();
+
                 int rcount = 0;
                 rfMax_ = 0;
-                 //loop over all faces of the boundary patch 
-                forAll(mesh_.boundary()[patch], facei)
-                {
-                    // Get normals to the patch cell face
-                    const vectorField& nHatf = mesh_.boundary()[patch].nf();
-                    const label& face = boundaryMesh[patch].start() + facei;        // Face index
-                    int bCell = faceOwner[facei + mesh_.boundary()[patch].start()]; //cell ID
                 
-                    // check if the cell is an interface cell
-                    if(alpha1_[bCell] < (1.0-wispTol_) && alpha1_[bCell] > wispTol_ )
-                    {
-                        std::vector <double> signedDistancesOfPatchFace; // to store sgined distances of the interface path face
-                        bool isContactLine = false;
-                        int countSign = 0;
+                //loop over all faces of the boundary patch 
+                forAll(thetaf, faceI)
+                {
                         double contactAngle = 0.0;
-
-                        // Signed distance  to detect the presence of the contact line. If the sign changes in even times ->  contact line
-                        forAll(faces[face], vertexID) //patch face
-                        {
-                            point vertex = points[faces[face][vertexID]]; // vertices of a patch face with interface
-                            double sd_ = plicNormalPatchInternalField[facei] & (plicCentrePatchInternalField[facei] - vertex);
-                            signedDistancesOfPatchFace.push_back(sd_);
-                        }
-                        forAll(signedDistancesOfPatchFace, sd)
-                        {
-                            auto ctr = (sd + 1) % signedDistancesOfPatchFace.size();
-                            if (std::signbit(signedDistancesOfPatchFace[sd]) != std::signbit(signedDistancesOfPatchFace[ctr]))
-                            {
-                                countSign++;
-                            }
-                        }
-                        if(countSign!=0) // also counts for vertex intersection (2 for edge-edge intersection 4 for vertex-vertex, 2 for egde intersection), //3 for vertex-edge
-                        {
-                            isContactLine = true;
-                            calRf(bCell, C, rcount);
-                        }
-                        if(isContactLine)// detects the contact line
+                        if(hasContactLine(faceI, boundary[patch]))// detects the contact line
                         { 
-                            if(!wisp_[bCell]) // also checks if not a wisp 
+                            int cellI = faceOwner[faceI + mesh_.boundary()[patch].start()]; // global cell index
+                            if(!wisp_[cellI]) // also checks if not a wisp  
                             {
-                                if((mag (plicNormalPatchInternalField[facei]) * mag(nHatf[facei])) !=0){
-                                    contactAngle = acos((plicNormalPatchInternalField[facei]) & nHatf[facei] / (mag (plicNormalPatchInternalField[facei]) * mag(nHatf[facei])) ) * 180.0 / M_PI;
-                                    contactAngles_[bCell] = contactAngle;
-				}
-                                        
-                                if(count==0)
+                                calRf(cellI, C, rcount);
+                                if((mag (plicNormals_[cellI]) * mag(nf[faceI])) !=0)
                                 {
-                                    //contactAnglemax_ = contactAngle;
-                                    contactAnglemin_ = contactAngle;
-                                    count++;
-                                }
-                                if(contactAngle < contactAnglemin_)
-                                {
-                                    contactAnglemin_ = contactAngle;
-                                }
-
+                                    contactAngle = acos((plicNormals_[cellI]) & nf[faceI] / (mag (plicNormals_[cellI]) * mag(nf[faceI])) ) * 180.0 / M_PI;
+                                    contactAngles_[cellI] = contactAngle;
+				                }
                             }
                         }
-                    }
                 }
 
             }
@@ -283,17 +274,17 @@ namespace Foam {
 
 //Check if an interface cell is a wisp. Marks all the wisp as 1 for visualization
     void contactAngleEvaluation::checkWisps(){
-       wisp_*= scalar(0);
+        wisp_*= scalar(0);
         const polyBoundaryMesh& boundaryMesh = mesh_.boundaryMesh(); //boundary mesh informataion 
         const auto& patches = mesh_.boundary();
         const auto& faceOwner = mesh_.faceOwner();
-	const volScalarField::Boundary & abf = alpha1_.boundaryField();
+	    const volScalarField::Boundary & abf = alpha1_.boundaryField();
 
         forAll(patches, patch)
         {
             const word& patchName = patches[patch].name();            // Boundary patch name
-             if (isA < alphaContactAngleTwoPhaseFvPatchScalarField > (abf[patch])) 
-	     {
+            if (isA < alphaContactAngleTwoPhaseFvPatchScalarField > (abf[patch])) 
+	        {
                 label patchID = boundaryMesh.findPatchID(patchName);
                 const vectorField plicNormalPatchInternalField = plicNormals_.boundaryField()[patchID].patchInternalField();
                 const vectorField plicCentrePatchInternalField = plicCentres_.boundaryField()[patchID].patchInternalField();
@@ -323,6 +314,87 @@ namespace Foam {
         }
     }
 
+    // Check if the patch face has a contact line: based on signed distance calculations
+    bool contactAngleEvaluation::hasContactLine(label faceI, const fvPatch& patch) const
+    {
+        // Look up PLIC normals and positions. 
+        const auto& db = alpha1_.db(); 
+
+        const auto normalsName = IOobject::groupName
+        (
+            "interfaceNormal", 
+            alpha1_.internalField().group()
+        );
+        const auto centresName = IOobject::groupName
+        (
+            "interfaceCentre", 
+            alpha1_.internalField().group()
+        );
+
+        bool hasNormals = db.found(normalsName);
+        if (!hasNormals)
+        {
+            // This BC is updated before interface reconstruction.
+            // Do nothing if PLIC fields are not available in the registry. 
+            return false;
+        }
+
+        bool hasCentres = db.found(centresName);
+        if (!hasCentres)
+        {
+            // This BC is updated before interface reconstruction.
+            // Do nothing if PLIC fields are not available in the registry. 
+            return false;
+        }
+
+        const volVectorField& interfaceNormal = 
+            db.lookupObject<volVectorField>(normalsName);
+
+        const volVectorField& interfaceCentre = 
+            db.lookupObject<volVectorField>(centresName);
+
+
+        // Get patch fields for interface normals and centers
+        const label patchIndex = patch.index();
+        const auto& pInterfaceNormals = interfaceNormal.boundaryField()[patchIndex];
+        const auto& pInterfaceCentres = interfaceCentre.boundaryField()[patchIndex];
+
+        // Get patch internal fields of normals and centers
+        const auto pInternalNormalsTmp = pInterfaceNormals.patchInternalField();
+        const auto& pInternalNormals = pInternalNormalsTmp.cref(); 
+        const auto pInternalCentresTmp = pInterfaceCentres.patchInternalField();
+        const auto& pInternalCentres = pInternalCentresTmp.cref(); 
+
+        const vector& cellInterfaceNormal = pInternalNormals[faceI];
+        const vector& cellInterfaceCentre = pInternalCentres[faceI];
+
+        const auto& mesh = interfaceNormal.mesh();
+        const auto& meshPoints = mesh.points();
+        const auto& meshFaces = mesh.faces();
+        const auto& thisFace = meshFaces[patch.start() + faceI];
+
+        // Get face points. 
+        for(auto pointI = 0; pointI < (thisFace.size() - 1); ++pointI)
+        {
+            // Compute the signed distance of the first point.
+            const point& firstFacePoint = meshPoints[thisFace[pointI]];
+            const scalar firstDist = (firstFacePoint - cellInterfaceCentre) & 
+                cellInterfaceNormal;
+
+            // Compute the signed distance of the second point.
+            const point& secondFacePoint = meshPoints[thisFace[pointI + 1]];
+            const scalar secondDist = (secondFacePoint - cellInterfaceCentre) & 
+                cellInterfaceNormal;
+
+            if (firstDist * secondDist < 0)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     //- Report at the console output / log file
     void contactAngleEvaluation::report() {}
 
@@ -338,26 +410,26 @@ namespace Foam {
         if (time_.writeTime()) {
             contactAngles_.write();
             rf_.write();
-            wisp_.write();
+
+            //wisp_.write();
             rfMax_ = gMax(rf_);
-            contactAnglemax_ = gMax (contactAngles_);
-            reduce(contactAnglemin_, minOp<scalar>());
+            //contactAnglemax_ = gMax (contactAngles_);
+            //reduce(contactAnglemin_, minOp<scalar>());
             if (Pstream::master())
             {
-		std::ofstream outputFileMin("postProcessing/contactangleMin.csv", std::ios::app);
-		std::ofstream outputFileMax("postProcessing/contactangleMax.csv", std::ios::app);
-		std::ofstream outputFileRfMax("postProcessing/rfMax.csv", std::ios::app);
-            // TODO:  Maximum and min contact angle value -> might give erranious values if wisps are still there and detected as an interface cell.
+              //  std::ofstream outputFileMin("postProcessing/contactangleMin.csv", std::ios::app);
+              //  std::ofstream outputFileMax("postProcessing/contactangleMax.csv", std::ios::app);
+                std::ofstream outputFileRfMax("postProcessing/rfMax.csv", std::ios::app);
+                // TODO:  Maximum and min contact angle value -> might give erranious values if wisps are still there and detected as an interface cell.
 
-            // Write stuff
-            outputFileMin << time_.value()<< "," << contactAnglemin_<< nl;
-            outputFileMax << time_.value()<< "," << contactAnglemax_<< nl;
-            outputFileRfMax << time_.value()<< "," << rfMax_<< nl;
+                // Write stuff
+               // outputFileMin << time_.value()<< "," << contactAnglemin_<< nl;
+               // outputFileMax << time_.value()<< "," << contactAnglemax_<< nl;
+                outputFileRfMax << time_.value()<< "," << rfMax_<< nl;
             
+            }
         }
-
-      }
-      return true;
+        return true;
     }
 
 }

@@ -29,11 +29,11 @@ Class
 
 Description
     A dynamic alphaContactAngle scalar boundary condition
-    employs the empirical coxVoinov model for dynamic contact angle 
+    employs the hydrodynamic coxVoinov model for dynamic contact angle 
     ((taken from Dirk Drunding and Anja Lippert dissertation)) i.e.,
     
-    theta_d = f_Hoff (Ca + f_Hoff^(-1) (theta_e));
-    f_Hoff(x) = arccos(1-2*tanh(5.16(Ca / (1 + 1.31*Ca^0.99))^0.706))
+    // thetad = (beta*  Ca + theta0^3)^(1/3) for \theta<135° (Dirk Grunding dissertation)
+    // beta = ln(x/L) -> x is the macro length scale and L is the micro length scale
 
 Developed by:
     Muhammad Hassan Asghar
@@ -50,14 +50,15 @@ SourceFiles
 #define coxVoinov_H
 
 #include "alphaContactAngleTwoPhaseFvPatchScalarField.H"
-
+#include "volFields.H"
+#include "fvMesh.H"
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-               Class dynamicAlphaContactAngleFvPatch Declaration
+               Class coxVoinov Declaration
 \*---------------------------------------------------------------------------*/
 
 class coxVoinov
@@ -72,6 +73,17 @@ class coxVoinov
         // scaling factor in Cox Voinov 
         // ln(x/L) -> x is the macro length scale and L is the micro length scale
         scalar beta_;
+
+        //- Visualization 
+        mutable volScalarField contactLineAngle_;
+
+    // Private member functions
+       
+        //- Determine whether a face contains a contact line
+        bool hasContactLine
+        (
+            label faceI
+        ) const;
 
 
 public:

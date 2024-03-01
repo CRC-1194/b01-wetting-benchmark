@@ -14,7 +14,7 @@ class height_vector:
     z_coord = 0.0  
 
 class Funcs:
-    #Formula from the Patel et al. paper
+    #Formula from the Patel et al. paper to calculate the volume of the droplet
     @classmethod
     def get_V(self, a, b,R0):
         return (pi/3*(R0*sin(a)/sin(b))**(3) * (1+cos(b))**(2) *(2-cos(b))) \
@@ -70,6 +70,7 @@ class Funcs:
         rf = sin(a)
         return hf, rf, (rf/sin(b))
 
+    # Reads the variation file and returns the map of variations to be used in notebook.
     @classmethod
     def fileMapping(self,label, sm):
         cwd = os.getcwd()

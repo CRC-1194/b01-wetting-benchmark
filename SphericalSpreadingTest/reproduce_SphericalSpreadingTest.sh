@@ -28,6 +28,9 @@ done
 ./create-study.py -s $fileName -c case -p case.parameter
 
 #intialization of cases
+for case in $fileName*; do cd $case/0.or*; rm -rf *.template; cd ../..; done
+for case in $fileName*; do cd $case/constant; rm -rf *.template; cd ../..; done
+for case in $fileName*; do cd $case/system; rm -rf *.template; cd ../..; done 
 for case in $fileName*; do cd $case; ./Allclean; cd ..; done
 for case in $fileName*; do cd $case; ./Allrun; cd ..; done
 
@@ -35,7 +38,7 @@ for case in $fileName*; do cd $case; ./Allrun; cd ..; done
 #for case in $fileName*; do cd $case; interFlow >log.interFlow; cd ..; done
 
 #remote run
-for case in $fileName*; do cd $case; sbatch script.sh; cd ..; done
+#for case in $fileName*; do cd $case; sbatch script.sh; cd ..; done
 
 
 

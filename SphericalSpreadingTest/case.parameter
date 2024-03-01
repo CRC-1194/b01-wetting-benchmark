@@ -31,12 +31,7 @@ values
   
     writeInterval
     (
-	0.001
-    );
-
-    U   
-    (
-        1.0
+	2e-3
     );
 
     courantNo
