@@ -42,7 +42,7 @@ $\Omega = \sqrt{\frac{9\sigma\cos\theta \mu^2}{\rho^3g^2R^5}}$
 
 ## Installation
 Following instructions will get a copy of the benchmark suite up and running on a local/remote machine.
-The current study is based on the Volume-of-Fluid method based OpenFOAM's solver [interFlow](https://github.com/DLR-RY/TwoPhaseFlow/tree/of2112#readme). The available Jupyter notebooks used for post-processing and visualization can be used by an OpenFOAM user and any other simulation software user, provided the files storing the secondary data (error norms) are organized as described in the README.md file.   
+The current study is based on the Volume-of-Fluid method based OpenFOAM's solver [interFlow](https://github.com/tmaric/TwoPhaseFlow/tree/of2212#readme). The available Jupyter notebooks used for post-processing and visualization can be used by an OpenFOAM user and any other simulation software user, provided the files storing the secondary data (error norms) are organized as described in the README.md file.   
 
 ### Compilation & Installation dependencies
 
@@ -54,7 +54,7 @@ Build system: CMake version 3.19.3
 Meshing
 
 - [gmsh](http://gmsh.info/) meshing software version 4.4.1, used for generating surface meshes.
-- [cfmesh](https://develop.openfoam.com/Community/integration-cfmesh/-/tree/v2112), available as an OpenFOAM (git tag, OpenFOAM-v2112) sub-module, used for automatic generation of unstructured volume meshes.
+- [cfmesh](https://develop.openfoam.com/Community/integration-cfmesh/-/tree/v2312), available as an OpenFOAM (git tag, OpenFOAM-v2312) sub-module, used for automatic generation of unstructured volume meshes.
 
 OpenFOAM
 
@@ -63,18 +63,18 @@ To install OpenFOAM from the GitLab repository, follow the [instructions](https:
 - Clone the OpenFOAM repository using git.
 - Check out the git tag
 ```
-    ?> git checkout OpenFOAM-v2112
+    ?> git checkout OpenFOAM-v2312
 ```
 - Compile OpenFOAM as instructed by its documentation.
 
 TwoPhaseFlow Library
 
-To link the TwoPhaseFlow library, follow the instructions in [README.md](https://github.com/DLR-RY/TwoPhaseFlow/tree/of2112#readme) of the library,
+To link the TwoPhaseFlow library, follow the instructions in [README.md](https://github.com/tmaric/TwoPhaseFlow/tree/of2212#readme) of the library,
 
 - Clone the TwoPhaseFlow library using git.
 - Check out the git tag
 ```
-    ?> git checkout of2112
+    ?> git checkout of2212
 ```
 - Compile the library as instructed by its documentation.
 
@@ -155,21 +155,29 @@ The script, namely `script.sh` in each case directory, supports the submission t
 
 ### Function Objects (FO)
 
-Functions objects are used to write the data to a `*.csv |*.vtk | *.vtp` file format in each case directory's `postProcessing\` folder. The benchmark suite uses the following function objects:
+[Functions objects](https://github.com/CRC-1194/b01-wetting-benchmark/tree/master/src/functionObjects) are used to write the data to a `*.csv |*.vtk | *.vtp` file format in each case directory's `postProcessing\` folder. 
+
+Run
+ ```
+?> ./Allwmake.sh
+```
+to compile the function objects.
+
+The benchmark suite uses the following function objects:
 
 | FO  | Description |
 | ------ | ------ |
-| `wettedArea` | Recovers the volume fraction value of the boundary face and returns the area of the domain boundary submerged in the transported fluid also referred as wetted area |
-| `contactAngle2DEvaluation` | Returns the contact angle field for a 2D geometry |
-| `myVortex2D` | Provides the prescribed velocity field 'vortex-in-a-box' |
-| `contactAngleEvaluationTest` | Returns the contact angle field and the contact radius for a 3D geometry |
+| [wettedArea](https://github.com/CRC-1194/b01-wetting-benchmark/tree/master/src/functionObjects/wettedArea) | Recovers the volume fraction value of the boundary face and returns the area of the domain boundary submerged in the transported fluid also referred as wetted area |
+| contactAngle2DEvaluation | Returns the contact angle field for a 2D geometry |
+| myVortex2D | Provides the prescribed velocity field 'vortex-in-a-box' |
+| [contactAngleEvaluation](https://github.com/CRC-1194/b01-wetting-benchmark/tree/master/src/functionObjects/contactAngleEvaluation) | Returns the contact angle field and the contact radius for a 3D geometry |
 
 | FO  | Cases | Data Files |
 | ------ | ------ | ------ |
 | `wettedArea` | DropletSpreadingTest and SphericalSpreadingTest | `wettedArea.csv` |
 | `contactAngle2DEvaluation` | AdvectionTest | `contactAngleMax.csv` , `contactAngleMin.csv` |
 | `myVortex2D` | AdvectionTest |
-| `contactAngleEvaluationTest` | DropletSpreadingTest and SphericalSpreadingTest | `contactAngleMax.csv` , `contactAngleMin.csv` , `rfMax.csv` |
+| `contactAngleEvaluation` | DropletSpreadingTest and SphericalSpreadingTest | `contactAngleMax.csv` , `contactAngleMin.csv` , `rfMax.csv` |
 
 ### Data file format
 The following file formats are used in this benchmark suite:
@@ -213,7 +221,7 @@ We will show the structure of the `*.csv` files for every function object.
 | 0.001 | 4.31 |
 | 0.002 | 6.23 |
 
-- `contactAngleEvaluationTest`
+- `contactAngleEvaluation`
 
 | Time (sec) | contact radius (m) |
 | ------ | ------ |
