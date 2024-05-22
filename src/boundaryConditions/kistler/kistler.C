@@ -54,11 +54,16 @@ Developed by:
 
 #include <functional>
 
+#include "interpolationCellPoint.H"
 
 // * * * * * * * * * * * Private Member Functions * * * * * * * * * * * * * * //
 
 // Newton's method for root finding
-double Foam::kistler::newton_method(const std::function<double(double)>& func, const std::function<double(double)>& deriv, scalar initial_guess) const
+double Foam::kistler::newton_method(
+    const std::function<double(double)>& func, 
+    const std::function<double(double)>& deriv, 
+    scalar initial_guess
+) const
 {
     scalar x = initial_guess;
     scalar h = func(x) / deriv(x);
@@ -73,7 +78,8 @@ double Foam::kistler::newton_method(const std::function<double(double)>& func, c
 double Foam::kistler::hoffman_function_inv(scalar theta0_) const
 {
     scalar theta0_rad = theta0_* M_PI / 180.0;
-    scalar right_side = std::pow((std::atanh((1 - std::cos(theta0_rad)) / 2) / 5.16), 1 / 0.706);
+    scalar right_side = std::pow(
+        (std::atanh((1 - std::cos(theta0_rad)) / 2) / 5.16), 1 / 0.706);
 
     auto equation = [right_side](double y) -> double {
         return y - (1.31 * right_side * std::pow(y, 0.99)) - right_side;
@@ -84,36 +90,36 @@ double Foam::kistler::hoffman_function_inv(scalar theta0_) const
     };
 
     scalar initial_guess = 0.1;
-    double reValue =newton_method(equation, derivative, initial_guess);
+    double reValue = newton_method(equation, derivative, initial_guess);
     return reValue;
 }
 
 
 // Kistler model
-double Foam::kistler::kistler_model(scalar theta0_, scalar Ca)  const 
+double Foam::kistler::kistler_model(
+    scalar theta0_, 
+    scalar Ca
+)  const 
 {
     double invHoff = hoffman_function_inv(theta0_);
     double x = invHoff + mag(Ca);
-    double theta_d = std::acos(1 - 2 * std::tanh(5.16 * std::pow(x / (1 + 1.31*std::pow(x, 0.99)), 0.706)));
+    double theta_d = std::acos(
+        1 - 2 * std::tanh(5.16 * 
+                          std::pow(x / (1 + 1.31*std::pow(x, 0.99)), 0.706)));
     return theta_d;
 }
 
-// Check if the patch face has a contact line: based on signed distance calculations
+// Check if the patch face has a contact line: based on 
+// signed distance calculations
 bool Foam::kistler::hasContactLine(label faceI) const
 {
     // Look up PLIC normals and positions. 
     const auto& db = this->db(); 
 
-    const auto normalsName = IOobject::groupName
-    (
-        "interfaceNormal", 
-        this->internalField().group()
-    );
-    const auto centresName = IOobject::groupName
-    (
-        "interfaceCentre", 
-        this->internalField().group()
-    );
+    const auto normalsName = 
+        IOobject::groupName("interfaceNormal", this->internalField().group());
+    const auto centresName = 
+        IOobject::groupName("interfaceCentre", this->internalField().group());
 
     bool hasNormals = db.found(normalsName);
     if (!hasNormals)
@@ -136,7 +142,6 @@ bool Foam::kistler::hasContactLine(label faceI) const
 
     const volVectorField& interfaceCentre = 
         db.lookupObject<volVectorField>(centresName);
-
 
     // Get patch fields for interface normals and centers
     const fvPatch& patch = this->patch();
@@ -176,19 +181,16 @@ bool Foam::kistler::hasContactLine(label faceI) const
             return true;
         }
     }
-
     return false;
 }
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::kistler::
-kistler
-(
+Foam::kistler::kistler(
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF
 )
-:
+:   
     alphaContactAngleTwoPhaseFvPatchScalarField(p, iF),
     theta0_(0.0),
     contactLineAngle_
@@ -207,9 +209,7 @@ kistler
 {}
 
 
-Foam::kistler::
-kistler
-(
+Foam::kistler::kistler(
     const kistler& gcpsf,
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF,
@@ -234,8 +234,7 @@ kistler
 {}
 
 
-Foam::kistler::
-kistler
+Foam::kistler::kistler
 (
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF,
@@ -262,8 +261,7 @@ kistler
 }
 
 
-Foam::kistler::
-kistler
+Foam::kistler::kistler
 (
     const kistler& gcpsf
 )
@@ -286,8 +284,7 @@ kistler
 {}
 
 
-Foam::kistler::
-kistler
+Foam::kistler::kistler
 (
     const kistler& gcpsf,
     const DimensionedField<scalar, volMesh>& iF
@@ -313,98 +310,274 @@ kistler
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-Foam::tmp<Foam::scalarField>
-Foam::kistler::theta
+Foam::tmp<Foam::scalarField>Foam::kistler::theta
 (
     const fvPatchVectorField& Up,
     const fvsPatchVectorField& nHat
 ) const
 {
-        //patch face normal vectors
-        const vectorField nf(patch().nf());
-
-        // Calculated the component of the velocity parallel to the wall
-        vectorField Uwall(Up.patchInternalField() - Up);
-
-       
-        Uwall -= (nf & Uwall) * nf;
-
-        // Find the direction of the interface parallel to the wall
-        vectorField nWall(nHat - (nf & nHat) * nf);
-
-        // Normalise nWall
-        nWall /= (mag(nWall) + SMALL);
-
-
-        // Calculate Uwall resolved normal to the interface parallel to
-        // the interface
-        scalarField uwall(-nWall & Uwall);
- 
-
-        const label patchi = this -> patch().index();
-
-        const volScalarField & nu1 =
-            this -> db().objectRegistry::lookupObject < volScalarField > ("nu1");
-
-        const dictionary & transportProperties =
-            this -> db().objectRegistry::lookupObject < IOdictionary >
-            (
-                "transportProperties"
-            );
-
-        word phase1Name(wordList(transportProperties.lookup("phases"))[0]);
-        word phase2Name(wordList(transportProperties.lookup("phases"))[1]);
-
-
-        dimensionedScalar rho1(transportProperties.subDict(phase1Name).getScalar("rho"));
-        dimensionedScalar sigmap(transportProperties.getScalar("sigma"));
-
-
-        const fvPatchScalarField & nu1p = nu1.boundaryField()[patchi];
-      
-       //Capillary number fields
-        scalarField Ca(nu1p * rho1.value() * uwall / sigmap.value());
-
-    // Compute the contact angles at the wall.
-    tmp<scalarField> thetafTmp = Foam::radToDeg(Foam::acos(nHat & nf));
-    scalarField& thetaf = thetafTmp.ref();
-
-    // Visualization.
+    //Patch Index
     const auto& patch = this->patch();
     const label patchIndex =patch.index();
-    auto& clangleBoundaryField = contactLineAngle_.boundaryFieldRef();
-    auto& clanglePatchField = clangleBoundaryField[patchIndex];
-    clanglePatchField *= 0.0;
+
+    //patch face normal vectors
+    const vectorField nf(patch.nf());
+    // Find the direction of the interface parallel to the wall
+    vectorField nWall(nHat - (nf & nHat)*nf);
+    // Normalise nWall
+    nWall /= (mag(nWall) + SMALL);
+
+    // Calculate contact line velocity relative to the 
+    // wall velocity for moving walls. 
+    vectorField Uwall(Up.patchInternalField() - Up);
+
+    // Calculate component of the contact line velocity Uwal in the direction
+    // of the interface normal tagential to the wall.
+    scalarField uwall(nWall & Uwall);
+
+    const dictionary& transportProperties =
+    this->db().objectRegistry::lookupObject<IOdictionary>
+    (
+        "transportProperties"
+    );
+
+    // Choose the larger dynamic viscosity from available two phases.
+    word phase1Name (wordList(transportProperties.lookup("phases"))[0]);
+    word phase2Name (wordList(transportProperties.lookup("phases"))[1]);
+
+    // Get constant phase-specific densities and kinematic viscosities.
+    dimensionedScalar rho1(transportProperties.subDict(phase1Name).get<dimensionedScalar>("rho"));
+    dimensionedScalar nu1c(transportProperties.subDict(phase1Name).get<dimensionedScalar>("nu"));
+
+    dimensionedScalar rho2(transportProperties.subDict(phase2Name).get<dimensionedScalar>("rho"));
+    dimensionedScalar nu2c(transportProperties.subDict(phase2Name).get<dimensionedScalar>("nu"));
+
+    word nuName; 
+    dimensionedScalar rho(rho1); 
+    // If the dynamic viscosity of phase1 is larger
+    if (rho1*nu1c > rho2*nu2c)
+    {
+        nuName = "nu1";
+        rho = rho1;
+    }
+    else
+    {
+        nuName = "nu2";
+        rho = rho2;
+    }
+    const volScalarField& nu =
+        this->db().objectRegistry::lookupObject<volScalarField>(nuName);
+
+    // Fetch the wall kinematic viscosity of phase1 
+    const fvPatchScalarField& nup = nu.boundaryField()[patchIndex];
+    scalarField muwall (nup*rho.value());
+
+    // Fetch surface tension coefficient
+    dimensionedScalar sigmap(transportProperties.get<dimensionedScalar>("sigma"));
 
     word fieldName = "alpha." + phase1Name;
     const volScalarField& alpha1_ =
-        nu1.mesh().lookupObject<volScalarField>(fieldName);
+        nu.mesh().lookupObject<volScalarField>(fieldName);
 
     const volScalarField::Boundary& abf = alpha1_.boundaryField();   
     // Lookup the desired alpha values on the patch
     const fvPatchField<scalar>& alphaPatchField = abf[patchIndex];
+    
+    // Capillary number will be updated later in the code 
+    // based on (i) cell-centred velocity field
+    // (ii) interpolated velocity field at interface-centres
 
-    // For all boundary faces
-    forAll(thetaf, faceI)
-    {    
-        // If we are in a contact-line cell
-        if (hasContactLine(faceI) && alphaPatchField[faceI] > 1e-5) 
-        {
-            thetaf[faceI] = min(
-                        180 / constant::mathematical::pi * kistler_model(theta0_, Ca[faceI]),
-                        scalar(135)
-                        );
+    // Wall Capillary number
+    scalarField Ca(muwall*uwall/sigmap.value());
+
+    // 1. Get the PLIC centre and normals
+    // Look up PLIC normals and positions. 
+    const auto& db = this->db(); 
+
+    const auto normalsName = 
+        IOobject::groupName("interfaceNormal", this->internalField().group());
+    const auto centresName = 
+        IOobject::groupName("interfaceCentre", this->internalField().group());
+
+    bool hasNormals = db.found(normalsName);
+    bool hasCentres = db.found(centresName);
             
-                        // Visualize the new dynamic contact angle as a face-centered value.
-            clanglePatchField[faceI] = thetaf[faceI];
-            //  Pout << " Contact line on face " << faceI
-            //       << " Cell ID " << nu1.mesh().faceOwner()[faceI + this->patch().start()]
-            //       << "\n\ttheta = " << thetaf[faceI]
-            // //      //<< "\n\tnWall = " << nWall[faceI]
-            // //      //<< "\n\tuwall = " << uwall[faceI]
-            //       << "\n\tCa = " << Ca[faceI]
-               //  <<endl;
+    // Cell-centred velocity field
+    Foam::volVectorField& U  = const_cast<Foam::volVectorField&> (this -> db().objectRegistry::lookupObject < volVectorField > ("U"));
+
+    // NOTE: Velocity field at the plic centre
+    // is calculated using inverse distance interpolation scheme using U and cell and plic centres
+    // This field is then used to calculate the Capillary number in this code
+    // which is consistent with isoAdvection.C advection scheme
+    
+    // Uplic is used for advection: interpolated velocity at the PLIC centre
+    Foam::volVectorField Uplic (U*scalar(0));
+
+    // If there are no PLIC elements (i) calculate Ca  using cell-centred velocity field
+    // Else calculate Ca using interpolated cell centred velocity to PLIC centre (using inverse distance weightings)
+    if (!hasNormals || !hasCentres )
+    {
+        //Info << "not Interpolating the PLIC" << nl;
+        // This BC is updated before interface reconstruction.
+
+        // Calculated the component of the velocity parallel to the wall
+        Uwall = Up.patchInternalField() - Up;
+        Uwall -= (nf & Uwall) * nf;
+
+        // Find the direction of the interface parallel to the wall
+        nWall = nHat - (nf & nHat) * nf;
+
+        // Normalise nWall
+        nWall /= (mag(nWall) + SMALL);
+
+        // Calculate Uwall resolved normal to the interface parallel to
+        // the interface
+        uwall = -nWall & Uwall ;
+
+        //Capillary number fields
+        Ca = muwall * uwall / sigmap.value();
+    }
+    else
+    {
+        //Info << "Interpolating the PLIC" << nl;
+        const volVectorField& interfaceCentre = 
+            db.lookupObject<volVectorField>(centresName);
+
+        // Create object for interpolating velocity to isoface centres
+        interpolationCellPoint<vector> UInterp(U);
+
+        //Interpolate the cell-centred velocity to the PLIC-centre
+        forAll(interfaceCentre, cellI)
+        {
+            Uplic[cellI] = UInterp.interpolate(interfaceCentre[cellI], cellI);
         }
+        //Get patch fields for PLIC velocity
+        const auto& pUplic = Uplic.boundaryField()[patchIndex];
+
+        // Calculated the component of the velocity parallel to the wall
+        Uwall = pUplic.patchInternalField() - pUplic;
+
+        Uwall -= (nf & Uwall) * nf;
+
+        // Find the direction of the interface parallel to the wall
+        nWall = nHat - (nf & nHat) * nf;
+
+        // Normalise nWall
+        nWall /= (mag(nWall) + SMALL);
+
+        // Calculate Uwall resolved normal to the interface parallel to
+        // the interface
+        uwall = -nWall & Uwall;
+
+        //Capillary number fields
+        Ca = muwall * uwall / sigmap.value();
+    }
+
+    // Compute the contact angles at the wall.
+    tmp<scalarField> thetafTmp = Foam::radToDeg(Foam::acos(nHat & nf));
+    scalarField& thetaf = thetafTmp.ref();   
+
+    // Visualization.
+    auto& clangleBoundaryField = contactLineAngle_.boundaryFieldRef();
+    auto& clanglePatchField = clangleBoundaryField[patchIndex];
+    clanglePatchField *= 0.0;
+    contactLineAngle_*=0.0;
+        
+    // Visualization of the contact angle
+    const fvMesh& mesh = nu.mesh(); 
+    const auto& faceOwner = mesh.faceOwner();   
+
+    // Maximum contact line capillary number for post-processing
+    scalar CaMax= 0;
+    // Stabilization technique applied to filter the wisp contribution 
+    // If the contact angle changes more than a (hard-coded) user-defined
+    // value, changed the contact angle of the particular face with the average value 
+    // of the calculated dynamic contact angles
+    scalar thetaAvg = 0.0;
+    scalar nCLcells = 0.0;
+
+    forAll(thetaf, faceI)
+    {   
+        if (hasContactLine(faceI))
+        {
+            if ((alphaPatchField[faceI] > 1e-8) || (alphaPatchField[faceI] <  (1- 1e-8)) )
+            {
+            
+                contactLineAngle_[faceOwner[patch.start() + faceI]] = thetaf[faceI];
+
+                if (mag(Ca[faceI])> CaMax)
+                {
+                    CaMax = mag(Ca[faceI]);
+                }
+
+                //For 1st couple of time stamps, thetaD = theta_initialized
+                // if this is not done, it will take thetad=theta0 degrees as the Ca is zero
+                // initially which is not correct.
+                if ((mag(Ca[faceI])==0) &   (mesh.time().timeIndex() <=1 ))
+                {
+                    thetaf[faceI] = thetaf[faceI];
+                }
+                else // apply Kistler's model
+                {
+                    thetaf[faceI] = min(
+                                180 / constant::mathematical::pi * kistler_model(theta0_, Ca[faceI]),
+                                scalar(165)
+                                ); 
+                }
+                //Pout << "thetaf in calculation  :" <<  thetaf[faceI] <<nl;
+                thetaAvg+=thetaf[faceI];
+                nCLcells++;
+                //Pout << "thetaf : " << thetaf[faceI] << " Ca: " << mag(Ca[faceI]) << " beta Contri " << beta_ *mag(Ca[faceI]) << " theta m " << thetam << nl;
+
+            }
+            clanglePatchField[faceI] = thetaf[faceI];
+
+        }
+       // Pout << "thetaf outside calculation  :" <<  thetaf[faceI] <<nl;
+    }
+    
+
+
+    // Stabilization of the huge increase in contact angle 
+    // due to couple of cells with high capillary number
+    if(mesh.time().timeIndex() > 100) 
+    {
+        scalar globalTheta = returnReduce(thetaAvg, sumOp<scalar>());
+        scalar globalnCLCells = returnReduce(nCLcells, sumOp<scalar>());
+        if(globalnCLCells!=0)
+        {
+            scalar gThetaAvg = globalTheta / globalnCLCells;
+            //Info << "thetaAvg " << gThetaAvg << nl;
+            forAll(thetaf, faceI)
+            {
+                // 5 is an arbitrary value, if the difference of theta from avg is greater than 20 then rewrite theta to a avg value
+                // Avoids the large CA near the equilibirum state
+                // if(thetaf[faceI]!=90)
+                //     Pout << "Before the cal: " << thetaf[faceI] << " - " << gThetaAvg << " = " << mag(thetaf[faceI] - gThetaAvg) << nl;
+                if( (mag(thetaf[faceI] - gThetaAvg) > 5) & (thetaf[faceI] !=90)) 
+                {
+                    // if(thetaf[faceI]!=90)
+                    //    Pout << "went inside " << nl;
+                    thetaf[faceI] = gThetaAvg;
+                }
+                // if(thetaf[faceI]!=90)
+                //     Pout << "After the cal: " << thetaf[faceI] << nl;
+
+            }
+        }
+    }
+
+    //For plotting of contact line Capillary number 
+    scalar nonZeroCount = 0;
+    // Check if local scalar is non-zero
+    if (CaMax != 0)
+    {
+        nonZeroCount++;
+    }
+    //Pout << "Individual Max Capillary number: " <<  CaMax << nl;
+    if (returnReduce(nonZeroCount, sumOp<scalar>()) !=0)
+    {
+        Info << "Max Contact Line Capilary number: " << returnReduce(CaMax, sumOp<scalar>())  / returnReduce(nonZeroCount, sumOp<scalar>())<< nl;
     }
 
     return thetafTmp;
