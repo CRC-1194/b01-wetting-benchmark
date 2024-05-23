@@ -26,8 +26,10 @@ License
 
 Description
     A dynamic alphaContactAngle scalar boundary condition
-    employs the hydrodynamic coxVoinov model for dynamic contact angle 
-    ((taken from Dirk Drunding and Anja Lippert dissertation)) i.e.,
+    employs the hydrodynamic CoxwithDissipation model for dynamic contact angle
+    i.e., Cox Voinov dynamic contact model with uncompensated-Young stress term incorporated for dissipation 
+    
+    ((Cox-Voinov relationtaken from Dirk Drunding and Anja Lippert dissertation)) i.e.,
     
     // thetad = (beta*  Ca + theta0^3)^(1/3) for \theta<135° (Dirk Grunding dissertation)
     // beta = ln(x/L) -> x is the macro length scale and L is the micro length scale
@@ -38,7 +40,7 @@ Developed by:
     TU  Darmstadt
 \*---------------------------------------------------------------------------*/
 
-#include "coxVoinov.H"
+#include "dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField.H"
 
 #include "addToRunTimeSelectionTable.H"
 
@@ -58,7 +60,7 @@ Developed by:
 
 // * * * * * * * * * * * Private Member Functions * * * * * * * * * * * * * * //
 
-bool Foam::coxVoinov::
+bool Foam::dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField::
 hasContactLine
 (
     label faceI
@@ -145,8 +147,8 @@ hasContactLine
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::coxVoinov::
-coxVoinov
+Foam::dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField::
+dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField
 (
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF
@@ -154,6 +156,9 @@ coxVoinov
 :
     alphaContactAngleTwoPhaseFvPatchScalarField(p, iF),
     theta0_(0.0),
+    thetaA_(0.0),
+    thetaR_(0.0),
+    diss_(0.0),
     beta_(0.0),
     contactLineAngle_
     (
@@ -171,10 +176,10 @@ coxVoinov
 {}
 
 
-Foam::coxVoinov::
-coxVoinov
+Foam::dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField::
+dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField
 (
-    const coxVoinov& gcpsf,
+    const dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField& gcpsf,
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF,
     const fvPatchFieldMapper& mapper
@@ -182,6 +187,9 @@ coxVoinov
 :
     alphaContactAngleTwoPhaseFvPatchScalarField(gcpsf, p, iF, mapper),
     theta0_(gcpsf.theta0_),
+    thetaA_(gcpsf.thetaA_),
+    thetaR_(gcpsf.thetaR_),
+    diss_(gcpsf.diss_),
     beta_(gcpsf.beta_),
     contactLineAngle_
     (
@@ -199,8 +207,8 @@ coxVoinov
 {}
 
 
-Foam::coxVoinov::
-coxVoinov
+Foam::dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField::
+dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField
 (
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF,
@@ -209,6 +217,9 @@ coxVoinov
 :
     alphaContactAngleTwoPhaseFvPatchScalarField(p, iF, dict),
     theta0_(dict.get<scalar>("theta0")),
+    thetaA_(dict.get<scalar>("thetaA")),
+    thetaR_(dict.get<scalar>("thetaR")),
+    diss_(readScalar(dict.lookup("diss"))),
     beta_(readScalar(dict.lookup("beta"))),
     contactLineAngle_
     (
@@ -228,14 +239,17 @@ coxVoinov
 }
 
 
-Foam::coxVoinov::
-coxVoinov
+Foam::dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField::
+dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField
 (
-    const coxVoinov& gcpsf
+    const dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField& gcpsf
 )
 :
     alphaContactAngleTwoPhaseFvPatchScalarField(gcpsf),
     theta0_(gcpsf.theta0_),
+    thetaA_(gcpsf.thetaA_),
+    thetaR_(gcpsf.thetaR_),
+    diss_(gcpsf.diss_),
     beta_(gcpsf.beta_),
     contactLineAngle_
     (
@@ -253,15 +267,18 @@ coxVoinov
 {}
 
 
-Foam::coxVoinov::
-coxVoinov
+Foam::dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField::
+dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField
 (
-    const coxVoinov& gcpsf,
+    const dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField& gcpsf,
     const DimensionedField<scalar, volMesh>& iF
 )
 :
     alphaContactAngleTwoPhaseFvPatchScalarField(gcpsf, iF),
     theta0_(gcpsf.theta0_),
+    thetaA_(gcpsf.thetaA_),
+    thetaR_(gcpsf.thetaR_),
+    diss_(gcpsf.diss_),
     beta_(gcpsf.beta_),
     contactLineAngle_
     (
@@ -282,7 +299,7 @@ coxVoinov
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 Foam::tmp<Foam::scalarField>
-Foam::coxVoinov::theta
+Foam::dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField::theta
 (
     const fvPatchVectorField& Up,
     const fvsPatchVectorField& nHat
@@ -459,8 +476,13 @@ Foam::coxVoinov::theta
     const fvMesh& mesh = nu.mesh(); 
     const auto& faceOwner = mesh.faceOwner();   
 
+    // thetam:
+    // -diss * U_cl / sigma = cos thetam - cos theta0
+    // thetam = arcos ((diss * Ucl /sigma) + cos theta0)
+    
     // Maximum contact line capillary number for post-processing
     scalar CaMax= 0;
+    scalar thetam = 0;
     
     // Stabilization technique applied to filter the wisp contribution
     // If the contact angle changes more than a (hard-coded) user-defined
@@ -470,20 +492,41 @@ Foam::coxVoinov::theta
     scalar nCLcells = 0.0;
 
     forAll(thetaf, faceI)
-    {
+    {   
+        thetam = 0.0;
         if (hasContactLine(faceI))
         {
             if ((alphaPatchField[faceI] > 1e-8) || (alphaPatchField[faceI] <  (1- 1e-8)) )
             {
-                // Visualize current PLIC contact angle as a cell-centered value.
+            
                 contactLineAngle_[faceOwner[patch.start() + faceI]] = thetaf[faceI];
 
-                //Cox-Voinov relation:
-                // beta = 9*ln(x_micro/x_macro)
-                if (mag(Ca[faceI])> CaMax)
+                scalar a = -1.0* diss_;
+                scalar b = a*mag(uwall[faceI]);
+                scalar c = b /sigmap.value();
+                scalar d = c + cos (theta0_*constant::mathematical::pi / 180);
+
+		// If trignometric functions arg is not defined
+		if ((d < -1) || (d>1))
+                {
+                    thetam = thetaf[faceI];
+                } 
+                else
+                {
+                    thetam = acos ( max (scalar(-1.0), d )) * 180 / constant::mathematical::pi;
+                }
+
+		// Post-processing calculation of max Capillary number
+ 		if (mag(Ca[faceI])> CaMax)
                 {
                     CaMax = mag(Ca[faceI]);
                 }
+
+		//Proposed solution for stabilization near sationary state
+                /*if ((mag(uwall[faceI])<2.5e-3) &&   (mesh.time().timeIndex() >1 ) )
+                {
+                    thetam = (theta0_ + thetam)/2.0;
+                }*/
 
                 //For 1st couple of time stamps, thetaD = theta_initialized
                 // if this is not done, it will take thetad=theta0 degrees as the Ca is zero
@@ -492,22 +535,21 @@ Foam::coxVoinov::theta
                 {
                     thetaf[faceI] = thetaf[faceI];
                 }
-                else // Apply Cox-Voinov
+                else // Apply Cox with dissipation 
                 {
-                    thetaf[faceI] = min(180 / constant::mathematical::pi *
-                            (cbrt( beta_ * mag(Ca[faceI]) + pow (theta0_ * constant::mathematical::pi / 180, 3))),
-                            scalar(135)
-                        );
+                    thetaf[faceI] = min(180 / constant::mathematical::pi * (
+                                        cbrt( beta_ * mag(Ca[faceI]) + pow (thetam * constant::mathematical::pi / 180, 3))),
+                        scalar(135)
+                    );
                 }
                 thetaAvg+=thetaf[faceI];
                 nCLcells++;
             }
             clanglePatchField[faceI] = thetaf[faceI];
-
         }
     }
-
-     // Stabilization of the huge increase in contact angle 
+    
+    // Stabilization of the huge increase in contact angle 
     // due to couple of cells high capillary number
     if(mesh.time().timeIndex() > 1000)
     {
@@ -516,17 +558,15 @@ Foam::coxVoinov::theta
         if(globalnCLCells!=0)
         {
             scalar gThetaAvg = globalTheta / globalnCLCells;
-
             forAll(thetaf, faceI)
             {
-                //15 is an arbitrary value, if the difference of theta from avg is greater than 15 then rewrite theta to a avg value
+                //3 is an arbitrary value, if the difference of theta from avg is greater than 3 then rewrite theta to a avg value
                 // Avoids the large CA near the equilibirum state
-                // if(thetaf[faceI]!=90)
-                //     Pout << "Before the cal: " << thetaf[faceI] << " - " << gThetaAvg << " = " << mag(thetaf[faceI] - gThetaAvg) << nl;
-                if( (mag(thetaf[faceI] - gThetaAvg) >15) & (thetaf[faceI] !=90))
+                if( (mag(thetaf[faceI] - gThetaAvg) > 3) && (thetaf[faceI] !=90)) 
                 {
                     thetaf[faceI] = gThetaAvg;
                 }
+
             }
         }
     }
@@ -538,19 +578,23 @@ Foam::coxVoinov::theta
     {
         nonZeroCount++;
     }
+    //Pout << "Individual Max Capillary number: " <<  CaMax << nl;
     if (returnReduce(nonZeroCount, sumOp<scalar>()) !=0)
     {
         Info << "Max Contact Line Capilary number: " << returnReduce(CaMax, sumOp<scalar>())  / returnReduce(nonZeroCount, sumOp<scalar>())<< nl;
     }
-
+    
     return thetafTmp;
 }
 
 
-void Foam::coxVoinov::write(Ostream& os) const
+void Foam::dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField::write(Ostream& os) const
 {
     alphaContactAngleTwoPhaseFvPatchScalarField::write(os);
     os.writeKeyword("theta0") << theta0_ << token::END_STATEMENT << nl;
+    os.writeKeyword("thetaA") << thetaA_ << token::END_STATEMENT << nl;
+    os.writeKeyword("thetaR") << thetaR_ << token::END_STATEMENT << nl;
+    os.writeKeyword("diss") << diss_ << token::END_STATEMENT << nl;
     os.writeKeyword("beta") << beta_ << token::END_STATEMENT << nl;
     writeEntry("value", os);
 }
@@ -563,7 +607,7 @@ namespace Foam
     makePatchTypeField
     (
         fvPatchScalarField,
-        coxVoinov
+        dynamicAlphaContactAngleCoxwithDissipationFvPatchScalarField
     );
 }
 
