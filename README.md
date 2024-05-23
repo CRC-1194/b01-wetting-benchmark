@@ -69,12 +69,12 @@ To install OpenFOAM from the GitLab repository, follow the [instructions](https:
 
 TwoPhaseFlow Library
 
-To link the TwoPhaseFlow library, follow the instructions in [README.md](https://github.com/tmaric/TwoPhaseFlow/tree/of2212#readme) of the library,
+To link the TwoPhaseFlow library, follow the instructions in [README.md](https://github.com/tmaric/TwoPhaseFlow/tree/of2312#readme) of the library,
 
 - Clone the TwoPhaseFlow library using git.
 - Check out the git tag
 ```
-    ?> git checkout of2212
+    ?> git checkout of2312
 ```
 - Compile the library as instructed by its documentation.
 
