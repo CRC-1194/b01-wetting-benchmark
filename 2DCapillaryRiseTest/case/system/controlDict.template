@@ -58,7 +58,11 @@ maxCapillaryNum @!maxCa!@;
 libs
 (
     "libtwoPhaseProperties.so"
-     "navierSlipBc.so"
+    "navierSlipBc.so"
+    "libamrDynamicFvMesh.so"
+    "libamrIndicators.so"
+    "libamrDynamicMesh.so"
+    "libtwoPhaseProperties.so"
 );
 
 OptimisationSwitches
