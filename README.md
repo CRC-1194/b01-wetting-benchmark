@@ -239,3 +239,9 @@ The `surface/` files are read by the Jupyter notebooks and provide the height of
 
 The Jupyter notebooks read the above file formats and visualize the case results. The notebooks are generated generically so that any simulation software user can readily use these notebooks, provided he generates the data in the mentioned file format and structure. 
 
+### Algorithms
+
+<img align="center" src="./src/CL.png" alt="drawing" width="450"/>
+
+<img align="center" src="./src/wisp.png" alt="drawing" width="450"/>
+
