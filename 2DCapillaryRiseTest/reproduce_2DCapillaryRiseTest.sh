@@ -111,5 +111,5 @@ then
         #for case in $test*; do cd $case; mpirun -n 4 interFlow -parallel > log.interFlow; cd ..; done
 
         #remote run
-        for case in $test*; do cd $case; sbatch script.sh; cd ..; done
+        #for case in $test*; do cd $case; sbatch script.sh; cd ..; done
 fi

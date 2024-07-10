@@ -4,7 +4,6 @@ cd ${0%/*} || exit 1    # run from this directory
 # Source tutorial run functions
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
-export AMRLB_PROJECT=$HOME/repos/blastAMR
 export FOAM_CODE_TEMPLATES=$AMRLB_PROJECT/etc/codeTemplates/dynamicCode
 
 set -e
@@ -19,7 +18,7 @@ for i in $(seq 1 "$maxRef"); do
     runApplication -a setFields
 done
 runApplication decomposePar
-mpirun -np 4 interFlow -parallel
+#mpirun -np 4 $(getApplication) -parallel
 
 #application $(getApplication)
 
