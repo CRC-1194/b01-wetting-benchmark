@@ -1,0 +1,37 @@
+
+===============================
+27 variations with 3 parameters
+===============================
+
+
+==================
+Listing variations
+==================
+
+Variation 0 : {'nz': 30, 'ny': 60, 'nx': 30}
+Variation 1 : {'nz': 30, 'ny': 60, 'nx': 40}
+Variation 2 : {'nz': 30, 'ny': 60, 'nx': 50}
+Variation 3 : {'nz': 30, 'ny': 80, 'nx': 30}
+Variation 4 : {'nz': 30, 'ny': 80, 'nx': 40}
+Variation 5 : {'nz': 30, 'ny': 80, 'nx': 50}
+Variation 6 : {'nz': 30, 'ny': 100, 'nx': 30}
+Variation 7 : {'nz': 30, 'ny': 100, 'nx': 40}
+Variation 8 : {'nz': 30, 'ny': 100, 'nx': 50}
+Variation 9 : {'nz': 40, 'ny': 60, 'nx': 30}
+Variation 10 : {'nz': 40, 'ny': 60, 'nx': 40}
+Variation 11 : {'nz': 40, 'ny': 60, 'nx': 50}
+Variation 12 : {'nz': 40, 'ny': 80, 'nx': 30}
+Variation 13 : {'nz': 40, 'ny': 80, 'nx': 40}
+Variation 14 : {'nz': 40, 'ny': 80, 'nx': 50}
+Variation 15 : {'nz': 40, 'ny': 100, 'nx': 30}
+Variation 16 : {'nz': 40, 'ny': 100, 'nx': 40}
+Variation 17 : {'nz': 40, 'ny': 100, 'nx': 50}
+Variation 18 : {'nz': 50, 'ny': 60, 'nx': 30}
+Variation 19 : {'nz': 50, 'ny': 60, 'nx': 40}
+Variation 20 : {'nz': 50, 'ny': 60, 'nx': 50}
+Variation 21 : {'nz': 50, 'ny': 80, 'nx': 30}
+Variation 22 : {'nz': 50, 'ny': 80, 'nx': 40}
+Variation 23 : {'nz': 50, 'ny': 80, 'nx': 50}
+Variation 24 : {'nz': 50, 'ny': 100, 'nx': 30}
+Variation 25 : {'nz': 50, 'ny': 100, 'nx': 40}
+Variation 26 : {'nz': 50, 'ny': 100, 'nx': 50}

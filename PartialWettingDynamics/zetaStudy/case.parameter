@@ -1,0 +1,11 @@
+values
+{
+    solver (interFlow);
+   
+    // dimensionless zeta parameter
+    zeta (0.0 0.8 1.2 2.0 2.8);
+    
+
+}
+
+

@@ -1,0 +1,27 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       uniformDimensionedVectorField;
+    location    "constant";
+    object      g;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -2 0 0 0 0];
+value		(0 0 0);
+//value           ( 4.15 0 -8.89);
+//value (0.422 0 -0.9063);
+//gsin 0 -gcos
+//value           ( #calc "9.81*sin(55*degToRad())" 0 #calc "-9.81*cos(55*degToRad())");
+//gsin 0 -gcos
+
+
+// ************************************************************************* //

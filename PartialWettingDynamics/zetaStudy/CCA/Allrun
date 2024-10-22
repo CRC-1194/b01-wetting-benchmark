@@ -1,0 +1,26 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+rm -rf 0 && cp -r 0.org 0 
+runApplication blockMesh
+runApplication topoSet
+runApplication refineMesh -overwrite
+# Initialization
+runApplication surfaceInitVolumeFraction
+#runApplication setAlphaField
+touch case.foam
+#interFlow > log
+# Postprocessing
+#runApplication foamToVTK
+
+#interFlow > log
+runApplication decomposePar
+#mpirun -n 8 interFlow -parallel > log
+#application=`getApplication`
+
+#runApplication  $application 
+
+# ----------------------------------------------------------------- end-of-file

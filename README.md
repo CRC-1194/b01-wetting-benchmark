@@ -27,13 +27,18 @@ The test case is carried out for a uniform and non-uniform graded 2D cartesian m
 
 For this case study, we have considered a droplet spreading on a flat surface ([Dupont and Legendre](https://doi.org/10.1016/j.jcp.2009.07.034) ,  [Fricke et. al](https://doi.org/10.48550/arXiv.2003.04914)) that allows for studying the effect of the static contact angle boundary condition and the Bond number, $Bo = \frac{\rho_l g R_0}{\sigma}$ on the equilibrium shape of the droplet. Ideally, surface tension forces dominate for a droplet that spreads with $Bo\ll1$, and the droplet at equilibrium maintains a spherical cap shape and satisfies the contact angle boundary condition. On the other hand, for $Bo\gg1$, the gravitational forces dominate, and the droplet forms a puddle, whose height is directly proportional to the capillary length, $l_{Ca}=\sqrt{\frac{\sigma}{\rho_l g}}$. The conservation of the droplet's volume $V$ with an equilibrium contact angle $\theta_e$ allows formulation of the geometrical relations that define the equilibrium shape of the droplet. In addition to observing droplets at equilibrium, we have also studied the mesh convergence of the spreading droplets.
 
+### 3. [Partial Wetting Dynamics ](./PartialWettingDynamics)
+<img align="center" src="./DropletSpreadingTest/MeshConvergence/DropletSpreading.png" alt="drawing" width="400"/>
 
-### 3. [Droplet Spreading over a spherical surface](./SphericalSpreadingTest)
+In this study, a validation of droplet spreading dynamics studied by [Lavi and Marmur](https://doi.org/10.1016/j.colsurfa.2004.04.079) is  done. We have compared different velocity models and contact angle boundary conditions and also incorporated the so-called uncompensated Youngs-stress term in the Cox-Voinov dynamic contact angle boundary condition which shows a very good agreement with the experimental findings. We have also compared our results with the results obtained in [study](http://tuprints.ulb.tu-darmstadt.de/5817/) using the FS3D solver which employs the structured geometric VOF method and by [Legendre and Dupont](https://doi.org/10.1016/j.jcp.2009.07.034) using the JADIM method.
+
+
+### 4. [Droplet Spreading over a spherical surface](./SphericalSpreadingTest)
 <img align="center" src="./SphericalSpreadingTest/SphericalSpreading.png" alt="drawing" width="600"/>
 
 In this study, we consider a droplet spreading over a spherical surface for a very small Bond number ($Bo\ll1$), as described by [Patel et. al](https://doi.org/10.1016/j.ces.2017.03.012). This case study allows studying the spreading of a droplet over a complex surface discretized using an unstructured Cartesian three-dimensional mesh refined locally around the spherical object. We compare the droplet geometrical charactersitics (contact radius $r$) and height ($e$) at the equilibrium.
 
-### 4. [2D Capillary Rise](./2DCapillaryRiseTest)
+### 5. [2D Capillary Rise](./2DCapillaryRiseTest)
 <img align="center" src="./2DCapillaryRiseTest/2DCapillaryRise.png" alt="drawing" width="300"/>
 
 In this validation study, we consider the rising of a liquid column between two planar surfaces. We present the results of the mesh convergence study of a 2D capillary rise with no-slip and resolved partial slip boundary condition. We present the comparison of the plicRDF-isoAdvector method with other numerical methods, 1. the OpenFOAM solver interTrackFoam, an Arbitrary Lagrangian-Eulerian (ALE) method, 2. the Free Surface 3D (FS3D), an in-house two-phase flow solver implying the geometric Volume-of-Fluid (VOF) method, 3. the OpenFOAM-based algebraic VOF solver, interFoam, 4. the Bounded Support Spectral Solver (BoSSS) is based on the extended discontinuous Galerkin method. As discussed by [Gründing et. al](https://doi.org/10.1016/j.apm.2020.04.020), the dynamics of capillary rise can be controlled by a non-dimensionless group, $\Omega$, defined as

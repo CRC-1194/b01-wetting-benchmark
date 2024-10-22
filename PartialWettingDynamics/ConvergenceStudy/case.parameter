@@ -1,0 +1,14 @@
+values
+{
+    solver (interFlow);
+   
+    //cells-per-radius 12 16 20
+    nx (30 40 50);
+    
+    ny (60 80 100);
+    
+    nz (30 40 50);
+
+}
+
+

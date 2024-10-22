@@ -1,0 +1,84 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      alpha.water_glycerol;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   uniform 0;
+
+boundaryField
+{
+
+
+    left
+    {
+        type            zeroGradient;
+    }
+    right
+    {
+        type           zeroGradient; 
+    }
+    front 
+    {
+        type            zeroGradient;
+    }
+ 
+    back
+    {
+        type           zeroGradient;
+    }
+        top
+    {
+        type            zeroGradient;
+    }
+
+   bottom 
+    {
+	type            dynamicAlphaContactAngleCoxwithDissipation;
+	beta		1;
+	diss		0.0;
+	theta0          41;
+	thetaA		41;
+	thetaR		41;
+        limit           gradient;
+	value 		uniform 0;
+	/*
+        type dynamicAlphaContactAngle;
+	value uniform 0;
+	theta0 90;
+	uTheta 0.1;
+	thetaA 125;
+	thetaR 85;
+	limit gradient;*/ 
+    
+    }
+   /* phobic
+    {
+    	type 		coxVoinovDCA;
+	value 		uniform 0;
+	theta0 	40;
+	beta	400;
+	limit 		gradient;
+	type dynamicAlphaContactAngle;
+	value uniform 0;
+	theta0 90;
+	uTheta 0.1;
+	thetaA 125;
+	thetaR 85;
+	limit gradient;
+    }*/
+}
+
+// ************************************************************************* //
